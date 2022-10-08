@@ -21,6 +21,7 @@ return new class extends Migration
                 $table->foreignIdFor(UserModel::class, 'user_id');
                 $table->foreignIdFor(RoomModel::class, 'room_id');
                 $table->timestamp('date_booking');
+                $table->integer('occupancy');
                 $table->decimal('total_price');
                 $table->timestamps();
                 $table->softDeletes();
