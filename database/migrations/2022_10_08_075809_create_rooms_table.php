@@ -23,6 +23,7 @@ return new class extends Migration
                 $table->string('address');
                 $table->string('photo');
                 $table->decimal('price');
+                $table->integer('capacity');
                 $table->string('comments');
                 $table->foreignIdFor(EstablishmentModel::class, 'establishment_id');
                 $table->foreignIdFor(UserModel::class, 'user_id');
