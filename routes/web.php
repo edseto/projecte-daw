@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\EstablishmentsController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EstablishmentsController;
 use App\Http\Controllers\UsersController;
 
 /*
@@ -25,12 +25,12 @@ Route::get('/', function () { return view('welcome'); });
 /***************************
  * RUTES ROL ADMINISTRADOR
  ***************************/
-Route::get('admin/', function () { return view('admin.index'); });
+Route::get('/admin', function () { return view('admin.index'); });
 
 //Route::resource('admin/user', UsersController::class);
-Route::get('admin/users', UsersController::class, 'index');
-Route::get('admin/user', UsersController::class, 'edit');
+Route::get('/admin/users', [UsersController::class, 'index']);
+Route::get('/admin/user', [UsersController::class, 'edit']);
 
 //Route::resource('admin/user', UsersController::class);
-Route::get('admin/establishments', EstablishmentsController::class, 'index');
-Route::get('admin/establishment', EstablishmentsController::class, 'edit');
+Route::get('/admin/establishments', [EstablishmentsController::class, 'index']);
+Route::get('/admin/establishment', [EstablishmentsController::class, 'edit']);

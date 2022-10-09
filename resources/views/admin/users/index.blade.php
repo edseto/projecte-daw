@@ -1,7 +1,4 @@
-<?php
-echo "<h1>Llistat de usuaris per a poder administrar</h1>";
-?>
-
+<h1>Llistat de usuaris per a poder administrar</h1>
 <table class="table table-light">
     <thead>
         <tr>

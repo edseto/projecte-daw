@@ -21,12 +21,13 @@ class UsersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
         $data = UserModel::all();
-        return view('admin.users.index', $data);
+
+        return view('admin.users.index', ['data' => $data]);
     }
 
     /**
