@@ -28,9 +28,9 @@ Route::get('/', function () { return view('welcome'); });
 Route::get('/admin', function () { return view('admin.index'); });
 
 //Route::resource('admin/user', UsersController::class);
-Route::get('/admin/users', [UsersController::class, 'index']);
-Route::get('/admin/user', [UsersController::class, 'edit']);
+Route::get('/admin/users', [UsersController::class, 'index'])->name('admin.users');
+Route::get('/admin/user', [UsersController::class, 'edit'])->name('users.edit');
 
 //Route::resource('admin/user', UsersController::class);
-Route::get('/admin/establishments', [EstablishmentsController::class, 'index']);
-Route::get('/admin/establishment', [EstablishmentsController::class, 'edit']);
+Route::get('/admin/establishments', [EstablishmentsController::class, 'index'])->name('admin.establishments');
+Route::get('/admin/establishment', [EstablishmentsController::class, 'edit'])->name('establishments.edit');
