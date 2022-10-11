@@ -26,7 +26,6 @@ class UsersController extends Controller
     public function index()
     {
         $data = UserModel::all();
-
         return view('admin.users.index', ['data' => $data]);
     }
 
@@ -59,7 +58,14 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        //TODO: retornar format response error o avís per pantalla
+        $user = UserModel::where('id', $id)->first();
+        if($user != null)
+        {
+            return view('admin.users.form', ['user' => $user, 'readonly' => "readonly"]);
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -70,8 +76,14 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //TODO
-        return view('admin.users.form');
+        //TODO: retornar format response error o avís per pantalla
+        $user = UserModel::where('id', $id)->first();
+        if($user != null)
+        {
+            return view('admin.users.form', ['user' => $user]);
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -84,6 +96,23 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    /**
+     * Soft deletes the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function softdelete($id)
+    {
+        //TODO: retornar format response OK
+        $user = UserModel::where('id', $id)->first();
+        if($user != null)
+        {
+            $user->deleted_at = date("dd/MM/yyyy");
+        }
+        return true;
     }
 
     /**

@@ -15,7 +15,8 @@ class EstablishmentController extends Controller
      */
     public function index()
     {
-        //
+        $data = EstablishmentModel::all();
+        return view('admin.establishments.index', ['data' => $data]);
     }
 
     /**
@@ -45,9 +46,16 @@ class EstablishmentController extends Controller
      * @param  \App\Models\EstablishmentModel  $establishment
      * @return \Illuminate\Http\Response
      */
-    public function show(EstablishmentModel $establishment)
+    public function show($id)
     {
-        //
+        //TODO: retornar format response error o avís per pantalla
+        $establishment = EstablishmentModel::where('id', $id)->first();
+        if($establishment != null)
+        {
+            return view('admin.establishments.form', ['establishment' => $establishment, 'readonly' => "readonly"]);
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -56,9 +64,16 @@ class EstablishmentController extends Controller
      * @param  \App\Models\EstablishmentModel  $establishment
      * @return \Illuminate\Http\Response
      */
-    public function edit(EstablishmentModel $establishment)
+    public function edit($id)
     {
-        //
+        //TODO: retornar format response error o avís per pantalla
+        $establishment = EstablishmentModel::where('id', $id)->first();
+        if($establishment != null)
+        {
+            return view('admin.establishments.form', ['establishment' => $establishment]);
+        } else {
+            return false;
+        }
     }
 
     /**

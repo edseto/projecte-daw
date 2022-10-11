@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EstablishmentsController;
+use App\Http\Controllers\EstablishmentController;
 use App\Http\Controllers\UsersController;
 
 /*
@@ -29,8 +29,10 @@ Route::get('/admin', function () { return view('admin.index'); });
 
 //Route::resource('admin/user', UsersController::class);
 Route::get('/admin/users', [UsersController::class, 'index'])->name('admin.users');
-Route::get('/admin/user', [UsersController::class, 'edit'])->name('users.edit');
+Route::get('/admin/user/{id}', [UsersController::class, 'edit'])->name('users.edit');
+Route::get('/admin/user/softdelete/{id}', [UsersController::class, 'softdelete'])->name('users.softdelete');
 
-//Route::resource('admin/user', UsersController::class);
-Route::get('/admin/establishments', [EstablishmentsController::class, 'index'])->name('admin.establishments');
-Route::get('/admin/establishment', [EstablishmentsController::class, 'edit'])->name('establishments.edit');
+//Route::resource('admin/user', EstablishmentController::class);
+Route::get('/admin/establishments', [EstablishmentController::class, 'index'])->name('admin.establishments');
+Route::get('/admin/establishment/{id}', [EstablishmentController::class, 'edit'])->name('establishment.edit');
+Route::get('/admin/establishment/softdelete/{id}', [EstablishmentController::class, 'softdelete'])->name('establishment.softdelete');
