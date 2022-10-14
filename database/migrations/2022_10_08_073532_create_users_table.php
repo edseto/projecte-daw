@@ -23,7 +23,7 @@ return new class extends Migration
                 $table->string('address');
                 $table->string('city');
                 $table->string('postal_code');
-                $table->string('profile_photo');
+                $table->string('profile_photo')->nullable();
                 $table->integer('role')->default(800);
                 $table->timestamps();
                 $table->softDeletes();

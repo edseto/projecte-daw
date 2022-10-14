@@ -21,10 +21,10 @@ return new class extends Migration
                 $table->string('name');
                 $table->string('description');
                 $table->string('address');
-                $table->string('photo');
+                $table->string('photo')->nullable();
                 $table->integer('occupancy');
                 $table->decimal('price');
-                $table->string('comments');
+                $table->string('comments')->nullable();
                 $table->foreignIdFor(EstablishmentModel::class, 'establishment_id');
                 $table->foreignIdFor(UserModel::class, 'user_id');
                 $table->timestamps();

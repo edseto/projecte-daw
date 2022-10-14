@@ -18,9 +18,9 @@ return new class extends Migration
             Schema::create('establishments', function (Blueprint $table) {
                 $table->id();
                 $table->string('name');
-                $table->string('description');
+                $table->string('description')->nullable();
                 $table->string('address');
-                $table->string('image');
+                $table->string('image')->nullable();
                 $table->string('establishment_type');
                 $table->string('city');
                 $table->string('postal_code');
