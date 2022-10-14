@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EstablishmentController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\RoomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,7 @@ Route::get('/admin/user/softdelete/{id}', [UsersController::class, 'softdelete']
 Route::get('/admin/establishments', [EstablishmentController::class, 'index'])->name('admin.establishments');
 Route::get('/admin/establishment/{id}', [EstablishmentController::class, 'edit'])->name('establishment.edit');
 Route::get('/admin/establishment/softdelete/{id}', [EstablishmentController::class, 'softdelete'])->name('establishment.softdelete');
+
+Route::get('/admin/rooms', [RoomController::class, 'index'])->name('admin.rooms');
+Route::get('/admin/room/{id}', [RoomController::class, 'edit'])->name('room.edit');
+Route::get('/admin/room/softdelete/{id}', [RoomController::class, 'softdelete'])->name('room.softdelete');

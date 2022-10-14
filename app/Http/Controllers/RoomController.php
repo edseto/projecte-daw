@@ -8,14 +8,11 @@ use App\Http\Requests\UpdateRoomRequest;
 
 class RoomController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $data = RoomModel::with('establishment')->whereNull('deleted_at')->get();
+
+        return view('admin.rooms.index', ['data' => $data]);
     }
 
     /**
