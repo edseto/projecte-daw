@@ -9,4 +9,9 @@ class EstablishmentModel extends Model
 {
     use HasFactory;
     protected $table = 'establishments';
+
+    public function rooms()
+    {
+        return $this->hasMany(RoomModel::class);
+    }
 }
