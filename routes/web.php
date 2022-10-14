@@ -39,5 +39,6 @@ Route::get('/admin/establishment/{id}', [EstablishmentController::class, 'edit']
 Route::get('/admin/establishment/softdelete/{id}', [EstablishmentController::class, 'softdelete'])->name('establishment.softdelete');
 
 Route::get('/admin/rooms', [RoomController::class, 'index'])->name('admin.rooms');
-Route::get('/admin/room/{id}', [RoomController::class, 'edit'])->name('room.edit');
-Route::get('/admin/room/softdelete/{id}', [RoomController::class, 'softdelete'])->name('room.softdelete');
+Route::get('/admin/room/{id?}', [RoomController::class, 'edit'])->name('room.edit');
+Route::post('/admin/room/update', [RoomController::class, 'update'])->name('room.update');
+Route::get('/admin/room/{id}/delete', [RoomController::class, 'delete'])->name('room.delete');

@@ -30,8 +30,10 @@
                 <td>
                     <a href="{{ route('room.edit', ['id' => $room->id]) }}">Editar</a>
                 </td>
+
+                {{-- TODO: Delete with AJAX to stay at same list page--}}
                 <td>
-                    <a href="{{ route('room.softdelete', ['id' => $room->id]) }}">Borrar</a>
+                    <a href="{{ route('room.delete', ['id' => $room->id]) }}">Borrar</a>
                 </td>
             </tr>
         @endforeach

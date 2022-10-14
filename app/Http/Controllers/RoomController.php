@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RoomModel;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
+use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
@@ -47,37 +48,39 @@ class RoomController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\RoomModel  $room
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(RoomModel $room)
+
+    public function edit($id)
     {
-        //
+        $room = RoomModel::query()->where('id', $id)->whereNull('deleted_at')->first();
+
+        if($room) {
+            return view('admin.rooms.form', ['room' => $room]);
+        }
+
+        abort('404');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateRoomRequest  $request
-     * @param  \App\Models\RoomModel  $room
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateRoomRequest $request, RoomModel $room)
+    public function update(Request $request)
     {
-        //
+        $room = RoomModel::query()->where('id', $request->input('id'))->get()->first();
+
+        $room->name = $request->input('name');
+        $room->description = $request->input('description');
+        $room->address = $request->input('address');
+        $room->photo = $request->input('photo');
+        $room->occupancy = $request->input('occupancy');
+        $room->price = $request->input('price');
+        $room->comments = $request->input('comments');
+        $room->establishment_id = $request->input('establishment');
+        $room->updated_at = now();
+
+        $room->save();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\RoomModel  $room
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(RoomModel $room)
+    public function delete($id)
     {
-        //
+        $room = RoomModel::query()->where('id', $id)->get()->first();
+        $room->deleted_at = now();
+        $room->save();
     }
 }
