@@ -26,17 +26,23 @@ Route::get('/', function () { return view('welcome'); });
 /***************************
  * RUTES ROL ADMINISTRADOR
  ***************************/
-Route::get('/admin', function () { return view('admin.index'); });
+Route::get('/admin', function () { return view('admin.index'); })->name('admin.index');
 
 //Route::resource('admin/user', UsersController::class);
 Route::get('/admin/users', [UsersController::class, 'index'])->name('admin.users');
+Route::get('/admin/user/create', [UsersController::class, 'create'])->name('users.create');
+Route::post('/admin/user/store', [UsersController::class, 'store'])->name('users.store');
 Route::get('/admin/user/{id}', [UsersController::class, 'edit'])->name('users.edit');
-Route::get('/admin/user/softdelete/{id}', [UsersController::class, 'softdelete'])->name('users.softdelete');
+Route::post('/admin/user/update', [UsersController::class, 'update'])->name('users.update');
+Route::get('/admin/user/{id}/delete', [UsersController::class, 'delete'])->name('users.delete');
 
 //Route::resource('admin/user', EstablishmentController::class);
 Route::get('/admin/establishments', [EstablishmentController::class, 'index'])->name('admin.establishments');
+Route::get('/admin/establishments/create', [EstablishmentController::class, 'create'])->name('establishments.create');
+Route::post('/admin/establishment/store', [EstablishmentController::class, 'store'])->name('establishment.store');
 Route::get('/admin/establishment/{id}', [EstablishmentController::class, 'edit'])->name('establishment.edit');
-Route::get('/admin/establishment/softdelete/{id}', [EstablishmentController::class, 'softdelete'])->name('establishment.softdelete');
+Route::post('/admin/establishment/update', [EstablishmentController::class, 'update'])->name('establishment.update');
+Route::get('/admin/establishment/{id}/delete', [EstablishmentController::class, 'delete'])->name('establishment.delete');
 
 Route::get('/admin/rooms', [RoomController::class, 'index'])->name('admin.rooms');
 Route::get('/admin/room/{id?}', [RoomController::class, 'edit'])->name('room.edit');

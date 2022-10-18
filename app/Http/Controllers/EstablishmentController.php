@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\EstablishmentModel;
-use App\Http\Requests\StoreEstablishmentRequest;
-use App\Http\Requests\UpdateEstablishmentRequest;
+use Illuminate\Http\Request;
 
 class EstablishmentController extends Controller
 {
@@ -15,7 +14,7 @@ class EstablishmentController extends Controller
      */
     public function index()
     {
-        $data = EstablishmentModel::all();
+        $data = EstablishmentModel::query()->whereNull('deleted_at')->get();
         return view('admin.establishments.index', ['data' => $data]);
     }
 
@@ -26,18 +25,34 @@ class EstablishmentController extends Controller
      */
     public function create()
     {
-        //
+        $establishment = new EstablishmentModel();
+        return view('admin.establishments.form', ['establishment' => $establishment]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreEstablishmentRequest  $request
+     * @param  \App\Http\Requests\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreEstablishmentRequest $request)
+    public function store(Request $request)
     {
-        //
+        $establishment = new EstablishmentModel();
+
+        $establishment->name = $request->input('name');
+        $establishment->description = $request->input('description');
+        $establishment->address = $request->input('address');
+        $establishment->image = strlen($request->input('image')) > 0 ? $request->input('image') : "";
+        $establishment->city = $request->input('city');
+        $establishment->establishment_type = $request->input('establishment_type');
+        $establishment->postal_code = $request->input('postal_code');
+        $establishment->user_id = 1;
+        $establishment->created_at = now();
+        $establishment->updated_at = now();
+
+        $establishment->save();
+
+        return redirect()->route('admin.establishments');
     }
 
     /**
@@ -48,13 +63,12 @@ class EstablishmentController extends Controller
      */
     public function show($id)
     {
-        //TODO: retornar format response error o avís per pantalla
         $establishment = EstablishmentModel::where('id', $id)->first();
         if($establishment != null)
         {
             return view('admin.establishments.form', ['establishment' => $establishment, 'readonly' => "readonly"]);
         } else {
-            return false;
+            abort('404');
         }
     }
 
@@ -66,26 +80,59 @@ class EstablishmentController extends Controller
      */
     public function edit($id)
     {
-        //TODO: retornar format response error o avís per pantalla
         $establishment = EstablishmentModel::where('id', $id)->first();
         if($establishment != null)
         {
             return view('admin.establishments.form', ['establishment' => $establishment]);
         } else {
-            return false;
+            abort('404');
         }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateEstablishmentRequest  $request
+     * @param  \App\Http\Requests\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        $establishment = EstablishmentModel::query()->where('id', $request->input('id'))->get()->first();
+
+        if ($establishment != null)
+        {
+            $establishment->name = $request->input('name');
+            $establishment->description = $request->input('description');
+            $establishment->address = $request->input('address');
+            $establishment->image = strlen($request->input('image')) > 0 ? $request->input('image') : "";
+            $establishment->city = $request->input('city');
+            $establishment->establishment_type = $request->input('establishment_type');
+            $establishment->postal_code = $request->input('postal_code');
+            $establishment->user_id = 1;
+            $establishment->updated_at = now();
+    
+            $establishment->save();
+        }
+
+        return redirect()->route('admin.establishments');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
      * @param  \App\Models\EstablishmentModel  $establishment
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateEstablishmentRequest $request, EstablishmentModel $establishment)
+    public function delete(int $id)
     {
-        //
+        $user = EstablishmentModel::where('id', $id)->first();
+        if($user != null)
+        {
+            $user->deleted_at = now();
+            $user->save();
+        }
+        
+        return redirect()->route('admin.establishments');
     }
 
     /**

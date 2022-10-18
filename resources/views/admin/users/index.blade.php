@@ -1,5 +1,7 @@
 <x-app>
     <h1>Llistat de usuaris per a poder administrar</h1>
+    <a href="/admin/" class="btn btn-primary">Administració</a>
+    <a href="{{ route('users.create') }}" class="btn btn-primary">Nou usuari</a>
     <table class="table table-light">
         <thead>
         <tr>
@@ -22,7 +24,7 @@
                     <a href="{{ route('users.edit', ['id' => $user->id]) }}">Editar</a>
                 </td>
                 <td>
-                    <a href="{{ route('users.softdelete', ['id' => $user->id]) }}">Borrar</a>
+                    <a href="{{ route('users.delete', ['id' => $user->id]) }}">Borrar</a>
                 </td>
             </tr>
         @endforeach

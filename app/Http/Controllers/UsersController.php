@@ -25,7 +25,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $data = UserModel::all();
+        $data = UserModel::query()->whereNull('deleted_at')->get();
         return view('admin.users.index', ['data' => $data]);
     }
 
@@ -36,7 +36,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //TODO
+        $user = new UserModel();
+        return view('admin.users.form', ['user' => $user]);
     }
 
     /**
@@ -47,7 +48,22 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new UserModel();
+
+        $user->name = $request->input('name');
+        $user->username = $request->input('username');
+        $user->password = strlen($request->input('password')) > 0 ? : "";
+        $user->nif = $request->input('nif');
+        $user->address = $request->input('address');
+        $user->city = $request->input('city');
+        $user->postal_code = $request->input('postal_code');
+        $user->profile_photo = strlen($request->input('profile_photo')) > 0 ? : "";
+        $user->created_at = now();
+        $user->updated_at = now();
+
+        $user->save();
+
+        return redirect()->route('admin.users');
     }
 
     /**
@@ -58,13 +74,12 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //TODO: retornar format response error o avís per pantalla
         $user = UserModel::where('id', $id)->first();
         if($user != null)
         {
             return view('admin.users.form', ['user' => $user, 'readonly' => "readonly"]);
         } else {
-            return false;
+            abort('404');
         }
     }
 
@@ -76,13 +91,12 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //TODO: retornar format response error o avís per pantalla
         $user = UserModel::where('id', $id)->first();
         if($user != null)
         {
             return view('admin.users.form', ['user' => $user]);
         } else {
-            return false;
+            abort('404');
         }
     }
 
@@ -90,12 +104,28 @@ class UsersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $user = UserModel::query()->where('id', $request->input('id'))->get()->first();
+
+        if ($user != null)
+        {
+            $user->name = $request->input('name');
+            $user->username = $request->input('username');
+            $user->password = strlen($request->input('password')) > 0 ? : "";
+            $user->nif = $request->input('nif');
+            $user->address = $request->input('address');
+            $user->city = $request->input('city');
+            $user->postal_code = $request->input('postal_code');
+            $user->profile_photo = strlen($request->input('profile_photo')) > 0 ? : "";
+            $user->updated_at = now();
+    
+            $user->save();
+        }
+
+        return redirect()->route('admin.users');
     }
 
     /**
@@ -104,15 +134,16 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function softdelete($id)
+    public function delete($id)
     {
-        //TODO: retornar format response OK
         $user = UserModel::where('id', $id)->first();
         if($user != null)
         {
-            $user->deleted_at = date("dd/MM/yyyy");
+            $user->deleted_at = now();
+            $user->save();
         }
-        return true;
+        
+        return redirect()->route('admin.users');
     }
 
     /**
