@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RoomModel;
+use App\Models\Room;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
     public function index()
     {
-        $data = RoomModel::with('establishment')->whereNull('deleted_at')->get();
+        $users = $this->getUsersRooms();
 
-        return view('admin.rooms.index', ['data' => $data]);
+        return view('admin.rooms.index', ['users' => $users]);
     }
 
     /**
@@ -40,10 +41,10 @@ class RoomController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\RoomModel  $room
+     * @param  \App\Models\Room  $room
      * @return \Illuminate\Http\Response
      */
-    public function show(RoomModel $room)
+    public function show(Room $room)
     {
         //
     }
@@ -51,7 +52,7 @@ class RoomController extends Controller
 
     public function edit($id)
     {
-        $room = RoomModel::query()->where('id', $id)->whereNull('deleted_at')->first();
+        $room = Room::query()->where('id', $id)->whereNull('deleted_at')->first();
 
         if($room) {
             return view('admin.rooms.form', ['room' => $room]);
@@ -62,7 +63,7 @@ class RoomController extends Controller
 
     public function update(Request $request)
     {
-        $room = RoomModel::query()->where('id', $request->input('id'))->get()->first();
+        $room = Room::query()->where('id', $request->input('id'))->get()->first();
 
         $room->name = $request->input('name');
         $room->description = $request->input('description');
@@ -79,8 +80,17 @@ class RoomController extends Controller
 
     public function delete($id)
     {
-        $room = RoomModel::query()->where('id', $id)->get()->first();
+        $room = Room::query()->where('id', $id)->get()->first();
         $room->deleted_at = now();
         $room->save();
+    }
+
+    private function getUsersRooms($id = null)
+    {
+        return User::with(['rooms' => function ($q) {
+            return $q->whereNull('deleted_at');
+        }])->when($id !== null, function ($q) use ($id) {
+            return $q->where('id', $id);
+        })->whereNull('deleted_at')->get();
     }
 }
