@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\EstablishmentModel;
-use App\Models\UserModel;
+use App\Models\Establishment;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -25,8 +25,8 @@ return new class extends Migration
                 $table->integer('occupancy');
                 $table->decimal('price');
                 $table->string('comments')->nullable();
-                $table->foreignIdFor(EstablishmentModel::class, 'establishment_id');
-                $table->foreignIdFor(UserModel::class, 'user_id');
+                $table->foreignIdFor(Establishment::class, 'establishment_id');
+                $table->foreignIdFor(User::class, 'user_id');
                 $table->timestamps();
                 $table->softDeletes();
             });

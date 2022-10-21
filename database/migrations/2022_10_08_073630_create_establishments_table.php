@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\UserModel;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -24,7 +24,7 @@ return new class extends Migration
                 $table->string('establishment_type');
                 $table->string('city');
                 $table->string('postal_code');
-                $table->foreignIdFor(UserModel::class, 'user_id');
+                $table->foreignIdFor(User::class, 'user_id');
                 $table->timestamps();
                 $table->softDeletes();
             });

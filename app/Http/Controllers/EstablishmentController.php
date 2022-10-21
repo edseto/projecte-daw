@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EstablishmentModel;
+use App\Models\Establishment;
 use Illuminate\Http\Request;
 
 class EstablishmentController extends Controller
@@ -14,7 +14,7 @@ class EstablishmentController extends Controller
      */
     public function index()
     {
-        $data = EstablishmentModel::query()->whereNull('deleted_at')->get();
+        $data = Establishment::query()->whereNull('deleted_at')->get();
         return view('admin.establishments.index', ['data' => $data]);
     }
 
@@ -25,7 +25,7 @@ class EstablishmentController extends Controller
      */
     public function create()
     {
-        $establishment = new EstablishmentModel();
+        $establishment = new Establishment();
         return view('admin.establishments.form', ['establishment' => $establishment]);
     }
 
@@ -37,7 +37,7 @@ class EstablishmentController extends Controller
      */
     public function store(Request $request)
     {
-        $establishment = new EstablishmentModel();
+        $establishment = new Establishment();
 
         $establishment->name = $request->input('name');
         $establishment->description = $request->input('description');
@@ -58,12 +58,12 @@ class EstablishmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\EstablishmentModel  $establishment
+     * @param  \App\Models\Establishment  $establishment
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $establishment = EstablishmentModel::where('id', $id)->first();
+        $establishment = Establishment::where('id', $id)->first();
         if($establishment != null)
         {
             return view('admin.establishments.form', ['establishment' => $establishment, 'readonly' => "readonly"]);
@@ -75,12 +75,12 @@ class EstablishmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\EstablishmentModel  $establishment
+     * @param  \App\Models\Establishment  $establishment
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $establishment = EstablishmentModel::where('id', $id)->first();
+        $establishment = Establishment::where('id', $id)->first();
         if($establishment != null)
         {
             return view('admin.establishments.form', ['establishment' => $establishment]);
@@ -97,7 +97,7 @@ class EstablishmentController extends Controller
      */
     public function update(Request $request)
     {
-        $establishment = EstablishmentModel::query()->where('id', $request->input('id'))->get()->first();
+        $establishment = Establishment::query()->where('id', $request->input('id'))->get()->first();
 
         if ($establishment != null)
         {
@@ -110,7 +110,7 @@ class EstablishmentController extends Controller
             $establishment->postal_code = $request->input('postal_code');
             $establishment->user_id = 1;
             $establishment->updated_at = now();
-    
+
             $establishment->save();
         }
 
@@ -120,28 +120,28 @@ class EstablishmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\EstablishmentModel  $establishment
+     * @param  \App\Models\Establishment  $establishment
      * @return \Illuminate\Http\Response
      */
     public function delete(int $id)
     {
-        $user = EstablishmentModel::where('id', $id)->first();
+        $user = Establishment::where('id', $id)->first();
         if($user != null)
         {
             $user->deleted_at = now();
             $user->save();
         }
-        
+
         return redirect()->route('admin.establishments');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\EstablishmentModel  $establishment
+     * @param  \App\Models\Establishment  $establishment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EstablishmentModel $establishment)
+    public function destroy(Establishment $establishment)
     {
         //
     }

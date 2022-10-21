@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BookingModel;
+use App\Models\Booking;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
 
@@ -42,10 +42,10 @@ class BookingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\BookingModel  $booking
+     * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function show(BookingModel $booking)
+    public function show(Booking $booking)
     {
         //
     }
@@ -53,10 +53,10 @@ class BookingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\BookingModel  $booking
+     * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function edit(BookingModel $booking)
+    public function edit(Booking $booking)
     {
         //
     }
@@ -65,10 +65,10 @@ class BookingController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateBookingRequest  $request
-     * @param  \App\Models\BookingModel  $booking
+     * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBookingRequest $request, BookingModel $booking)
+    public function update(UpdateBookingRequest $request, Booking $booking)
     {
         //
     }
@@ -76,10 +76,10 @@ class BookingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\BookingModel  $booking
+     * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BookingModel $booking)
+    public function destroy(Booking $booking)
     {
         //
     }

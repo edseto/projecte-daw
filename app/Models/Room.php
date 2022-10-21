@@ -5,13 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RoomModel extends Model
+class Room extends Model
 {
     use HasFactory;
     protected $table = 'rooms';
 
     public function establishment()
     {
-        return $this->belongsTo(EstablishmentModel::class, 'establishment_id');
+        return $this->belongsTo(Establishment::class, 'establishment_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

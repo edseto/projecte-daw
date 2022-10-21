@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\RoomModel;
-use App\Models\ServiceModel;
+use App\Models\Room;
+use App\Models\Service;
 
 return new class extends Migration
 {
@@ -18,8 +18,8 @@ return new class extends Migration
         if (! Schema::hasTable('room_services')) {
             Schema::create('room_services', function (Blueprint $table) {
                 $table->id();
-                $table->foreignIdFor(RoomModel::class, 'room_id');
-                $table->foreignIdFor(ServiceModel::class, 'service_id');
+                $table->foreignIdFor(Room::class, 'room_id');
+                $table->foreignIdFor(Service::class, 'service_id');
             });
         }
     }

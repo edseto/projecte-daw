@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\UserModel;
-use App\Models\RoomModel;
+use App\Models\User;
+use App\Models\Room;
 
 return new class extends Migration
 {
@@ -18,8 +18,8 @@ return new class extends Migration
         if (! Schema::hasTable('bookings')) {
             Schema::create('bookings', function (Blueprint $table) {
                 $table->id();
-                $table->foreignIdFor(UserModel::class, 'user_id');
-                $table->foreignIdFor(RoomModel::class, 'room_id');
+                $table->foreignIdFor(User::class, 'user_id');
+                $table->foreignIdFor(Room::class, 'room_id');
                 $table->timestamp('date_booking');
                 $table->integer('occupancy');
                 $table->decimal('total_price');

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -25,7 +25,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $data = UserModel::query()->whereNull('deleted_at')->get();
+        $data = User::query()->whereNull('deleted_at')->get();
         return view('admin.users.index', ['data' => $data]);
     }
 
@@ -36,7 +36,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $user = new UserModel();
+        $user = new User();
         return view('admin.users.form', ['user' => $user]);
     }
 
@@ -48,7 +48,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new UserModel();
+        $user = new User();
 
         $user->name = $request->input('name');
         $user->username = $request->input('username');
@@ -74,7 +74,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $user = UserModel::where('id', $id)->first();
+        $user = User::where('id', $id)->first();
         if($user != null)
         {
             return view('admin.users.form', ['user' => $user, 'readonly' => "readonly"]);
@@ -91,7 +91,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = UserModel::where('id', $id)->first();
+        $user = User::where('id', $id)->first();
         if($user != null)
         {
             return view('admin.users.form', ['user' => $user]);
@@ -108,7 +108,7 @@ class UsersController extends Controller
      */
     public function update(Request $request)
     {
-        $user = UserModel::query()->where('id', $request->input('id'))->get()->first();
+        $user = User::query()->where('id', $request->input('id'))->get()->first();
 
         if ($user != null)
         {
@@ -121,7 +121,7 @@ class UsersController extends Controller
             $user->postal_code = $request->input('postal_code');
             $user->profile_photo = strlen($request->input('profile_photo')) > 0 ? : "";
             $user->updated_at = now();
-    
+
             $user->save();
         }
 
@@ -136,13 +136,13 @@ class UsersController extends Controller
      */
     public function delete($id)
     {
-        $user = UserModel::where('id', $id)->first();
+        $user = User::where('id', $id)->first();
         if($user != null)
         {
             $user->deleted_at = now();
             $user->save();
         }
-        
+
         return redirect()->route('admin.users');
     }
 
