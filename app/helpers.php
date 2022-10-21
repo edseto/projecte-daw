@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\EstablishmentModel;
+use App\Models\Establishment;
 use Illuminate\Database\Eloquent\Collection;
 
 function getEstablishments(): Collection
 {
-    return EstablishmentModel::all();
+    return Establishment::all();
 }
