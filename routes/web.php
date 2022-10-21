@@ -48,3 +48,11 @@ Route::get('/admin/rooms', [RoomController::class, 'index'])->name('admin.rooms'
 Route::get('/admin/room/{id?}', [RoomController::class, 'edit'])->name('room.edit');
 Route::post('/admin/room/update', [RoomController::class, 'update'])->name('room.update');
 Route::get('/admin/room/{id}/delete', [RoomController::class, 'delete'])->name('room.delete');
+
+/***************************
+ * RUTES ROL ADMINISTRADOR
+ ***************************/
+Route::get('/user', function () { return view('user.index'); })->name('user.index');
+
+Route::get('/user/create', [RoomController::class, 'create'])->name('user.create');
+Route::get('/user/rooms', [RoomController::class, 'index'])->name('user.rooms');

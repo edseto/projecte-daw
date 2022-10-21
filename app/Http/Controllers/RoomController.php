@@ -11,9 +11,23 @@ class RoomController extends Controller
 {
     public function index()
     {
-        $data = RoomModel::with('establishment')->whereNull('deleted_at')->get();
+        /*$role=auth()->user()->role;
+        $id=auth()->user()->id;
 
-        return view('admin.rooms.index', ['data' => $data]);
+        if ($role=='800'){
+            $data = RoomModel::query()->where('user_id', $id)->get();
+            return view('user.rooms.index', ['data' => $data]);
+        }*/
+
+            $data = RoomModel::query()->whereNull('deleted_at')->get();
+            return view('admin.rooms.index', ['data' => $data]);
+
+       
+
+        
+        
+    
+
     }
 
     /**
@@ -23,7 +37,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -45,7 +59,7 @@ class RoomController extends Controller
      */
     public function show(RoomModel $room)
     {
-        //
+        return view ('user.rooms.index');
     }
 
 
