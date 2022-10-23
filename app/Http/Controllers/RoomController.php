@@ -13,17 +13,17 @@ class RoomController extends Controller
     public function index()
     {
         $role = auth()->user() != null ? auth()->user()->role : '0';
-        
+
         if ($role=='800'){
 			$users = $this->getUsersRooms();
-			return view('admin.rooms.index', ['users' => $users]);
         }
 		else
         {
             $user_id = auth()->user() != null ? auth()->user()->id : null;
 			$users = $this->getUsersRooms($user_id);	//Codi d'usuari hardcoded
-			return view('admin.rooms.index', ['users' => $users]);
-		}
+        }
+        
+        return view('admin.rooms.index', ['users' => $users]);
     }
 
     /**
@@ -33,7 +33,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
