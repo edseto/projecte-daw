@@ -94,6 +94,8 @@ class RoomController extends Controller
         $room = Room::query()->where('id', $id)->get()->first();
         $room->deleted_at = now();
         $room->save();
+
+        return redirect()->route('admin.rooms');
     }
 
     private function getUsersRooms($id = null)
