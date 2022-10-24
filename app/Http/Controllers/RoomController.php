@@ -22,7 +22,7 @@ class RoomController extends Controller
             $user_id = auth()->user() != null ? auth()->user()->id : null;
 			$users = $this->getUsersRooms($user_id);	//Codi d'usuari hardcoded
         }
-        
+
         return view('admin.rooms.index', ['users' => $users]);
     }
 
@@ -85,6 +85,8 @@ class RoomController extends Controller
         $room->updated_at = now();
 
         $room->save();
+
+        return redirect()->route('admin.rooms');
     }
 
     public function delete($id)
