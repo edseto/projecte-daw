@@ -20,7 +20,10 @@ use App\Http\Controllers\RoomController;
 /************************
  * RUTES GENERALS
  ************************/
-Route::get('/', function () { return view('welcome'); });
+Route::get('/', function () { return view('welcome'); })->name('landing');
+Route::post('/login', [UsersController::class, 'login'])->name('login');
+Route::get('/logout', [UsersController::class, 'logout'])->name('logout');
+Route::post('/register', [UsersController::class, 'register'])->name('register');
 
 
 /***************************
@@ -49,10 +52,16 @@ Route::get('/admin/room/{id?}', [RoomController::class, 'edit'])->name('room.edi
 Route::post('/admin/room/update', [RoomController::class, 'update'])->name('room.update');
 Route::get('/admin/room/{id}/delete', [RoomController::class, 'delete'])->name('room.delete');
 
+
 /***************************
- * RUTES ROL ADMINISTRADOR
+ * RUTES ROL LLOGATER
  ***************************/
 Route::get('/user', function () { return view('user.index'); })->name('user.index');
 
 Route::get('/user/create', [RoomController::class, 'create'])->name('user.create');
 Route::get('/user/rooms', [RoomController::class, 'index'])->name('user.rooms');
+
+
+/***************************
+ * RUTES ROL CLIENT(TURISTA)
+ ***************************/

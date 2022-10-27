@@ -13,7 +13,7 @@ class StoreEstablishmentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class StoreEstablishmentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|max:250',
+            'address' => 'required|max:250',
+            'description' => 'required|max:250',
+            'city' => 'required|max:50',
+            'postal_code' => 'required|max:5',
+            'establishment_type' => 'required'
         ];
     }
 }

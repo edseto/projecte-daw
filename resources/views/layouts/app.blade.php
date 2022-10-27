@@ -204,14 +204,14 @@ body {
     <header>
         <!-- As a heading -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<a href="#" class="navbar-brand">DawVa<b>GO</b></a>  		
+	<a href="{{ route('landing') }}" class="navbar-brand">DawVa<b>GO</b></a>  		
 	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	<!-- Collection of nav links, forms, and other content for toggling -->
 	<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
 		<div class="navbar-nav">
-			<a href="#" class="nav-item nav-link">Home</a>
+			<a href="{{ route('landing') }}" class="nav-item nav-link">Home</a>
 			<a href="#" class="nav-item nav-link">About</a>	
             <!--		
 			<div class="nav-item dropdown">
@@ -227,6 +227,11 @@ body {
 			<a href="#" class="nav-item nav-link">Blog</a>
             -->
 			<a href="#" class="nav-item nav-link">Contact</a>
+			@if (Auth::check())
+				@if(auth()->user()->role == '800')
+					<a href="{{ route('admin.index') }}" class="nav-item nav-link">Administració</a>
+				@endif
+			@endif
 		</div>
         <!--
 		<form class="navbar-form form-inline">
@@ -243,44 +248,47 @@ body {
         
         @if (Auth::check())
         <div class="navbar-nav ml-auto action-buttons">
-            {{ auth()->user()->id }}
+            <a href="{{ route('users.edit', ['id' => auth()->user()->id]) }}" class="nav-link mr-4">{{ auth()->user()->name }}</a>
+			<a href="{{ route('logout') }}" class="btn btn-primary">Tanca sessió</a>
         </div>
         @else
 		<div class="navbar-nav ml-auto action-buttons">
 			<div class="nav-item dropdown">
-				<a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle mr-4">Login</a>
+				<a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle mr-4">Entrar</a>
                 <div class="dropdown-menu action-form">
-					<form action="/examples/actions/confirmation.php" method="post">
-						<p class="hint-text">Sign in with with your user name</p>
+					<form action="{{ route('login') }}" method="post">
+						@csrf
+						<p class="hint-text">Inicia sessió amb les teves credencials</p>
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Username" required="required">
+							<input id="username" name="username" type="text" class="form-control" placeholder="Username" required="required">
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" placeholder="Password" required="required">
+							<input id="password" name="password" type="password" class="form-control" placeholder="Password" required="required">
 						</div>
-						<input type="submit" class="btn btn-primary btn-block" value="Login">
+						<input type="submit" class="btn btn-primary btn-block" value="Iniciar sessió">
 						<div class="text-center mt-2">
-							<a href="#">Forgot Your password?</a>
+							<a href="#">No recordes la teva contrassenya?</a>
 						</div>
 					</form>
                 </div>
 			</div>
 			<div class="nav-item dropdown">
-				<a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle sign-up-btn">Sign up</a>
+				<a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle sign-up-btn">Registrar-se</a>
                 <div class="dropdown-menu action-form">
-					<form action="/examples/actions/confirmation.php" method="post">
+					<form action="{{ route('register') }}" method="post">
+						@csrf
 						<p class="hint-text">Fill in this form to create your account!</p>
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Username" required="required">
+							<input type="text" class="form-control" placeholder="Nom d'usuari" required="required">
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" placeholder="Password" required="required">
+							<input type="password" class="form-control" placeholder="Contrassenya" required="required">
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" placeholder="Confirm Password" required="required">
+							<input type="password" class="form-control" placeholder="Confirmar contrassenya" required="required">
 						</div>
 						<div class="form-group">
-							<label class="form-check-label"><input type="checkbox" required="required"> I accept the <a href="#">Terms &amp; Conditions</a></label>
+							<label class="form-check-label"><input type="checkbox" required="required"> Accepto els <a href="#">termes i condicions</a> d'aquest lloc web</label>
 						</div>
 						<input type="submit" class="btn btn-primary btn-block" value="Sign up">
 					</form>

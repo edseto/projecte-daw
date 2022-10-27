@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Establishment;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateEstablishmentRequest;
+use App\Http\Requests\StoreEstablishmentRequest;
 
 class EstablishmentController extends Controller
 {
@@ -32,10 +34,10 @@ class EstablishmentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\Request  $request
+     * @param  \App\Http\Requests\StoreEstablishmentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreEstablishmentRequest $request)
     {
         $establishment = new Establishment();
 
@@ -92,10 +94,10 @@ class EstablishmentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Request  $request
+     * @param  \App\Http\Requests\UpdateEstablishmentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UpdateEstablishmentRequest $request)
     {
         $establishment = Establishment::query()->where('id', $request->input('id'))->get()->first();
 

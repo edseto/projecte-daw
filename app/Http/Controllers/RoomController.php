@@ -70,7 +70,13 @@ class RoomController extends Controller
         abort('404');
     }
 
-    public function update(Request $request)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\UpdateRoomRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateRoomRequest $request)
     {
         $room = Room::query()->where('id', $request->input('id'))->get()->first();
 
