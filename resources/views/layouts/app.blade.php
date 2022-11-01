@@ -297,11 +297,33 @@ body {
         </div>
         @endif
 	</div>
+	
 </nav>
+ <!-- Background image -->
+ <div
+    class="p-5 text-center bg-image mb-5"
+    style="
+      background-image: url('https://granhotelnagari.com/wp-content/uploads/2022/04/habitacionesSMS.jpg');
+      height: 450px;
+      background-position: center 55%;
+    "
+  >
+  <!-- Background image -->
     </header>
     {!! $slot !!}
-    <footer>
+	<footer class="text-center text-white mt-5" style="background-color: #f1f1f1;">
+  		<div class="container pt-4">
+    		<section class="mb-4">
+				<a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button" data-mdb-ripple-color="dark"><i class="fab fa-facebook-f"></i></a>
+				<a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button" data-mdb-ripple-color="dark"><i class="fab fa-twitter"></i></a>
+				<a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button" data-mdb-ripple-color="dark"><i class="fab fa-google"></i></a>
+				<a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button" data-mdb-ripple-color="dark"><i class="fab fa-instagram"></i></a>
+			</section>
+		</div>
 
+		<div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">© 2022 Copyright: <a class="text-dark" href="https://dawvago.com/">Dawvago.com</a>
+		</div>
     </footer>
 </body>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
 </html>
