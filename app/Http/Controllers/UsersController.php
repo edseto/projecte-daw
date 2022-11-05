@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -55,11 +56,12 @@ class UsersController extends Controller
 
         $user->name = $request->input('name');
         $user->username = $request->input('username');
-        $user->password = strlen($request->input('password')) > 0 ? : "";
+        $user->password = strlen($request->input('password')) > 0 ? Hash::make($request->input('password')) : "";
         $user->nif = $request->input('nif');
         $user->address = $request->input('address');
         $user->city = $request->input('city');
         $user->postal_code = $request->input('postal_code');
+        $user->role = $request->input('role');
         $user->profile_photo = strlen($request->input('profile_photo')) > 0 ? : "";
         $user->created_at = now();
         $user->updated_at = now();
@@ -117,11 +119,12 @@ class UsersController extends Controller
         {
             $user->name = $request->input('name');
             $user->username = $request->input('username');
-            $user->password = strlen($request->input('password')) > 0 ? : "";
+            $user->password = strlen($request->input('password')) > 0 ? Hash::make($request->input('password')) : "";
             $user->nif = $request->input('nif');
             $user->address = $request->input('address');
             $user->city = $request->input('city');
             $user->postal_code = $request->input('postal_code');
+            $user->role = $request->input('role');
             $user->profile_photo = strlen($request->input('profile_photo')) > 0 ? : "";
             $user->updated_at = now();
 
@@ -203,8 +206,42 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function register(Request $request)
+    public function register()
     {
-        //TODO
+        return view('common.register');
+    }
+
+    /**
+     * Register user for the application.
+     *
+     * @param  \Illuminate\Http\StoreUserRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function signup(StoreUserRequest $request)
+    {
+        $user = new User();
+
+        $user->name = $request->input('name');
+        $user->username = $request->input('username');
+        $user->password = strlen($request->input('password')) > 0 ? Hash::make($request->input('password')) : "";
+        $user->nif = $request->input('nif');
+        $user->address = $request->input('address');
+        $user->city = $request->input('city');
+        $user->postal_code = $request->input('postal_code');
+        $user->role = $request->input('role');
+        $user->profile_photo = strlen($request->input('profile_photo')) > 0 ? : "";
+        $user->created_at = now();
+        $user->updated_at = now();
+
+        $user->save();
+
+        //After save the user, stay the created user on session
+        $credentials = $request->only('username', 'password');
+
+        if (Auth::attempt($credentials)){
+            $request->session()->regenerate();
+        }        
+
+        return redirect('/');
     }
 }

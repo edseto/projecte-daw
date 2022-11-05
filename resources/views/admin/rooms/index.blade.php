@@ -1,7 +1,7 @@
 <x-app>
     <h1>Llistat d'habitacions per a poder administrar</h1>
     <a href="{{ route('admin.index') }}" class="btn btn-primary">Administració</a>
-    <a href="{{ route('users.create') }}" class="btn btn-primary">Nou usuari</a>
+    <a href="#" class="btn btn-primary">Nou apartament</a>
     @foreach($users as $user)
         <div>User: {{ $user->name }}</div>
         <table class="table table-light">

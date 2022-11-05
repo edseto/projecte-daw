@@ -1,5 +1,15 @@
 <x-app>
     <h1>Formulari d'edició d'una habitació</h1>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <form action="{{ route('room.update') }}" method="post">
         @csrf
         <input name="id" type="hidden" value="{{ $room->id }}">

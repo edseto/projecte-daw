@@ -8,6 +8,17 @@
     }
     ?>
     <h1>Formulari d'edició de establishment</h1>
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <form action="{{ $establishment->id != null ? route('establishment.update') : route('establishment.store') }}" method="post">
     
     @csrf

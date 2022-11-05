@@ -273,7 +273,8 @@ body {
                 </div>
 			</div>
 			<div class="nav-item dropdown">
-				<a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle sign-up-btn">Registrar-se</a>
+				<a href="{{ route('register') }}" class="btn btn-primary">Registrar-se</a>
+				<!--<a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle sign-up-btn">Registrar-se</a>
                 <div class="dropdown-menu action-form">
 					<form action="{{ route('register') }}" method="post">
 						@csrf
@@ -291,7 +292,7 @@ body {
 							<label class="form-check-label"><input type="checkbox" required="required"> Accepto els <a href="#">termes i condicions</a> d'aquest lloc web</label>
 						</div>
 						<input type="submit" class="btn btn-primary btn-block" value="Sign up">
-					</form>
+					</form>-->
 				</div>
 			</div>
         </div>

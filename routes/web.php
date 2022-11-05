@@ -23,7 +23,8 @@ use App\Http\Controllers\RoomController;
 Route::get('/', function () { return view('welcome'); })->name('landing');
 Route::post('/login', [UsersController::class, 'login'])->name('login');
 Route::get('/logout', [UsersController::class, 'logout'])->name('logout');
-Route::post('/register', [UsersController::class, 'register'])->name('register');
+Route::post('/signup', [UsersController::class, 'signup'])->name('signup');
+Route::get('/register', [UsersController::class, 'register'])->name('register');
 
 
 /***************************

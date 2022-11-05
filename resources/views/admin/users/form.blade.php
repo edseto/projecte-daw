@@ -7,6 +7,16 @@
         $readonly = null;
     }
     ?>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <h1>Formulari d'edició d'usuaris</h1>
     <form action="{{ $user->id != null ? route('users.update') : route('users.store') }}" method="post">
     
@@ -23,10 +33,17 @@
                     <label for="password">Contrassenya</label>
                     <input class="form-control" name="password" id="password" aria-label="Contrassenya" type="password" {{$readonly}} />
                 </div>
-                <div class="col-4" style="visibility:collapse;">
+                <div class="col-4">
+                    <select class="form-control" name="role" id="role" {{$readonly}}>
+                        <option value="800" <?= $user->role == 800 ? 'selected' : '' ?>>Administrador</option>
+                        <option value="700" <?= $user->role == 700 ? 'selected' : '' ?>>Llogater</option>
+                        <option value="600" <?= $user->role == 600 || $user->role == null ? 'selected' : '' ?>>Client</option>
+                    </select>
+                </div>
+                <!--<div class="col-4" style="visibility:collapse;">
                     <label for="confirm_password">Repeteix la contrassenya</label>
                     <input class="form-control" name="confirm_password" id="confirm_password" aria-label="Repeteix la contrassenya" type="password" {{$readonly}} />
-                </div>
+                </div>-->
             </div>
             <div class="row">
                 <div class="col-4">
