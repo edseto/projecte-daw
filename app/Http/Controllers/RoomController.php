@@ -33,7 +33,8 @@ class RoomController extends Controller
      */
     public function create()
     {
-        return view('user.rooms.form');
+        $room = new Room();
+        return view('user.rooms.form', ['room' => $room]);
     }
 
     /**
@@ -44,7 +45,21 @@ class RoomController extends Controller
      */
     public function store(StoreRoomRequest $request)
     {
-        //
+        $room = new Room();
+
+        $room->name = $request->input('name');
+        $room->description = $request->input('description');
+        $room->address = $request->input('address');
+        $room->photo = $request->input('photo');
+        $room->occupancy = $request->input('occupancy');
+        $room->price = $request->input('price');
+        $room->comments = $request->input('comments');
+        $room->establishment_id = $request->input('establishment');
+        $room->updated_at = now();
+
+        $room->save();
+
+        return redirect()->route('admin.rooms');
     }
 
     /**
@@ -55,7 +70,7 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
-        return view ('user.rooms.index');
+        return view('user.rooms.index');
     }
 
 

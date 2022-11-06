@@ -42,13 +42,15 @@ Route::get('/admin/user/{id}/delete', [UsersController::class, 'delete'])->name(
 
 //Route::resource('admin/user', EstablishmentController::class);
 Route::get('/admin/establishments', [EstablishmentController::class, 'index'])->name('admin.establishments');
-Route::get('/admin/establishments/create', [EstablishmentController::class, 'create'])->name('establishments.create');
+Route::get('/admin/establishments/create', [EstablishmentController::class, 'create'])->name('establishment.create');
 Route::post('/admin/establishment/store', [EstablishmentController::class, 'store'])->name('establishment.store');
 Route::get('/admin/establishment/{id}', [EstablishmentController::class, 'edit'])->name('establishment.edit');
 Route::post('/admin/establishment/update', [EstablishmentController::class, 'update'])->name('establishment.update');
 Route::get('/admin/establishment/{id}/delete', [EstablishmentController::class, 'delete'])->name('establishment.delete');
 
 Route::get('/admin/rooms', [RoomController::class, 'index'])->name('admin.rooms');
+Route::get('/admin/room/create', [RoomController::class, 'create'])->name('room.create');
+Route::post('/admin/room/store', [RoomController::class, 'store'])->name('room.store');
 Route::get('/admin/room/{id?}', [RoomController::class, 'edit'])->name('room.edit');
 Route::post('/admin/room/update', [RoomController::class, 'update'])->name('room.update');
 Route::get('/admin/room/{id}/delete', [RoomController::class, 'delete'])->name('room.delete');

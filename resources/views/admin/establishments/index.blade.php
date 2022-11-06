@@ -1,7 +1,7 @@
 <x-app>
     <h1>Llistat de usuaris per a poder administrar</h1>
     <a href="/admin/" class="btn btn-primary">Administració</a>
-    <a href="{{ route('establishments.create') }}" class="btn btn-primary">Nou edifici</a>
+    <a href="{{ route('establishment.create') }}" class="btn btn-primary">Nou edifici</a>
     <table class="table table-light">
         <thead>
         <tr>

@@ -10,7 +10,7 @@
     </div>
     @endif
 
-    <form action="{{ route('room.update') }}" method="post">
+    <form action="{{ $room->id != null ? route('room.update') : route('room.store') }}" method="post">
         @csrf
         <input name="id" type="hidden" value="{{ $room->id }}">
 
@@ -64,8 +64,8 @@
                 </div>
             </div>
 
-            {{-- TODO: Update with AJAX to show message when it's done --}}
-            <button aria-label="Guardar" class="btn btn-primary" type="submit">Guardar</button>
+            <button class="btn btn-primary" type="submit">Guardar</button>
+            <a href="{{ route('admin.rooms') }}" class="btn btn-secondary" >Enrere</a>
         </div>
     </form>
 </x-app>

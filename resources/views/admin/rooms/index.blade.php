@@ -1,7 +1,7 @@
 <x-app>
     <h1>Llistat d'habitacions per a poder administrar</h1>
     <a href="{{ route('admin.index') }}" class="btn btn-primary">Administració</a>
-    <a href="#" class="btn btn-primary">Nou apartament</a>
+    <a href="{{ route('room.create') }}" class="btn btn-primary">Nou apartament</a>
     @foreach($users as $user)
         <div>User: {{ $user->name }}</div>
         <table class="table table-light">
@@ -35,7 +35,6 @@
                         <a href="{{ route('room.edit', ['id' => $room->id]) }}">Editar</a>
                     </td>
 
-                    {{-- TODO: Delete with AJAX to stay at same list page--}}
                     <td>
                         <a href="{{ route('room.delete', ['id' => $room->id]) }}">Borrar</a>
                     </td>
