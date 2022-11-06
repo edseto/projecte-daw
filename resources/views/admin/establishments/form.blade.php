@@ -19,42 +19,42 @@
     </div>
     @endif
 
-    <form action="{{ $establishment->id != null ? route('establishment.update') : route('establishment.store') }}" method="post">
-    
-    @csrf
-    <input name="id" id="id" type="hidden" value="{{ $establishment->id }}">
-    
+    <form class="c-form" action="{{ $establishment->id !== null ? route('establishment.update') : route('establishment.store') }}" enctype="multipart/form-data" method="post">
+
+        @csrf
+        <input name="id" id="id" type="hidden" value="{{ $establishment->id }}">
+
         <div class="form-group">
             <div class="row">
                 <div class="col-4">
                     <label for="name">Nom del edifici</label>
-                    <input class="form-control" name="name" id="name" aria-label="Nom del edifici" type="text" value="{{$establishment->name}}" {{$readonly}} />
+                    <input class="form-control c-input" name="name" id="name" aria-label="Nom del edifici" type="text" value="{{$establishment->name}}" {{$readonly}} />
                 </div>
                 <div class="col-4">
                     <label for="description">Descripció</label>
-                    <input class="form-control" name="description" id="description" aria-label="Descripció" type="text" value="{{$establishment->description}}" {{$readonly}} />
+                    <input class="form-control c-input" name="description" id="description" aria-label="Descripció" type="text" value="{{$establishment->description}}" {{$readonly}} />
                 </div>
                 <div class="col-4">
                     <label for="address">Adreça</label>
-                    <input class="form-control" name="address" id="address" aria-label="Adreça" type="text" value="{{$establishment->address}}" {{$readonly}} />
+                    <input class="form-control c-input" name="address" id="address" aria-label="Adreça" type="text" value="{{$establishment->address}}" {{$readonly}} />
                 </div>
             </div>
             <div class="row">
                 <div class="col-4">
                     <label for="image">Imàtge</label>
-                    <input class="form-control" name="image" id="image" type="text" aria-label="Imàtge" value="{{$establishment->image}}" {{$readonly}} />
+                    <input class="form-control c-input" name="image" id="image" type="text" aria-label="Imàtge" value="{{$establishment->image}}" {{$readonly}} />
                 </div>
                 <div class="col-4">
                     <label for="city">Població</label>
-                    <input class="form-control" name="city" id="city" type="text" aria-label="Població" value="{{$establishment->city}}" {{$readonly}}/>
+                    <input class="form-control c-input" name="city" id="city" type="text" aria-label="Població" value="{{$establishment->city}}" {{$readonly}}/>
                 </div>
                 <div class="col-2">
                     <label for="postal_code">Codi postal</label>
-                    <input class="form-control" name="postal_code" id="postal_code" type="text" aria-label="Codi postal" value="{{$establishment->postal_code}}" {{$readonly}} />
+                    <input class="form-control c-input" name="postal_code" id="postal_code" type="text" aria-label="Codi postal" value="{{$establishment->postal_code}}" {{$readonly}} />
                 </div>
                 <div class="col-2">
                     <label for="establishment_type">Tipus d'establiment</label>
-                    <select class="form-control" name="establishment_type" id="establishment_type">
+                    <select class="form-control c-input c-select" name="establishment_type" id="establishment_type">
                             <!-- TODO: Remove these hardcoded options -->
                             <option value="HOTEL" {{ $establishment->establishment_type === "HOTEL" ? 'selected' : '' }}>Hotel</option>
                             <option value="APARTAMENT" {{ $establishment->establishment_type === "APARTAMENT" ? 'selected' : '' }}>Apartament</option>
