@@ -33,7 +33,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-
+        return view('user.rooms.form');
     }
 
     /**
