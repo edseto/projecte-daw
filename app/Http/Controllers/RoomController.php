@@ -68,9 +68,14 @@ class RoomController extends Controller
      * @param  \App\Models\Room  $room
      * @return \Illuminate\Http\Response
      */
-    public function show(Room $room)
+    public function show($id)
     {
-        return view('user.rooms.index');
+        $room = Room::query()->where('id', $id)->whereNull('deleted_at')->first();
+        if($room) {
+            return view('user.rooms.show', ['room' => $room]);
+        }
+
+        abort('404');
     }
 
 

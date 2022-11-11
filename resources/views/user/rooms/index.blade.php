@@ -1,6 +1,6 @@
 <x-app>
 
-    <h1>Llistat de habitacions per a poder administrar</h1>
+    <h1>Llistat de habitacions per a poder administrars</h1>
     <a href="/user/" class="btn btn-primary">Administració</a>
     <a href="{{ route('user.create') }}" class="btn btn-primary">Nova habitació</a>
     <table class="table table-light">

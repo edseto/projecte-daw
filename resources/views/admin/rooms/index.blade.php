@@ -32,9 +32,11 @@
                     <td>{{$room->occupancy}}</td>
                     <td>{{$room->price}}</td>
                     <td>
+                        <a href="{{ route('room.show', ['id' => $room->id]) }}">Detalls</a>
+                    </td>
+                    <td>
                         <a href="{{ route('room.edit', ['id' => $room->id]) }}">Editar</a>
                     </td>
-
                     <td>
                         <a href="{{ route('room.delete', ['id' => $room->id]) }}">Borrar</a>
                     </td>
