@@ -1,16 +1,16 @@
 <x-app>
     <h1 >Formulari alta d'una habitació</h1>
-    <form action="{{ route('room.create') }}" method="post">
+    <form class="c-form" action="{{ route('room.create') }}" method="post">
         @csrf
         <div class="form-group">
             <div class="row">
-                <div class="col-2">
+                <div class="col-6">
                     <label for="name" class="font-weight-bold">Nom Habitació</label>
-                    <input class="form-control" id="name" aria-label="Nom Habitació" name="name" type="text" value="" />
+                    <input class="form-control c-input" id="name" aria-label="Nom Habitació" name="name" type="text" value="" />
                 </div>
-                <div class="col-2">
+                <div class="col-6">
                     <label for="establishment">Establiment</label>
-                    <select class="form-control" name="establishment" aria-label="Establiment" id="establishment">
+                    <select class="form-control c-input c-select" name="establishment" aria-label="Establiment" id="establishment">
                         @foreach(getEstablishments() as $establishment)
                             <option value="{{ $establishment->id }}">{{ $establishment->name }}</option>
                         @endforeach
@@ -18,37 +18,37 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-2">
+                <div class="col-6">
                     <label for="address">Adreça</label>
-                    <input class="form-control" name="address" type="text" aria-label="Adreça" id="address" value=""/>
+                    <input class="form-control c-input" name="address" type="text" aria-label="Adreça" id="address" value=""/>
                 </div>
-                <div class="col-2">
+                <div class="col-6">
                     <label for="photo">Imatge de l'habitació</label>
-                    <input type="file" class="form-control-file" id="photo" name="photo" aria-label="Imatge de l'habitació">
+                    <input type="file" class="form-control-file c-input" id="photo" name="photo" aria-label="Imatge de l'habitació">
                 </div>
             </div>
             <div class="row">
-                <div class="col-2">
+                <div class="col-6">
                     <label for="occupancy">Capacitat</label>
-                    <input class="form-control" name="occupancy" id="occupancy" aria-label="Capacitat" type="number" value="" />
+                    <input class="form-control c-input" name="occupancy" id="occupancy" aria-label="Capacitat" type="number" value="" />
                 </div>
-                <div class="col-2">
+                <div class="col-6">
                     <label for="price">Preu</label>
-                    <input class="form-control" name="price" type="text" id="price" aria-label="Preu" value="" />
+                    <input class="form-control c-input" name="price" type="text" id="price" aria-label="Preu" value="" />
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-4">
+                <div class="col-12">
                     <label for="description">Descripció</label>
-                    <textarea class="form-control" name="description" id="description" aria-label="Descripció" cols="55" rows="5"></textarea>
+                    <textarea class="form-control c-input" name="description" id="description" aria-label="Descripció" cols="55" rows="5"></textarea>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-4">
+                <div class="col-12">
                     <label for="comments">Comentaris</label>
-                    <textarea class="form-control" name="comments" id="comments" aria-label="Comentaris" cols="55" rows="5"></textarea>
+                    <textarea class="form-control c-input" name="comments" id="comments" aria-label="Comentaris" cols="55" rows="5"></textarea>
                 </div>
             </div>
 
