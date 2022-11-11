@@ -1,7 +1,7 @@
 <x-app>
     <h1 >Formulari alta d'una habitació</h1>
-    <form action="{{ route('user.create') }}" method="post">
-
+    <form action="{{ route('room.create') }}" method="post">
+        @csrf
         <div class="form-group">
             <div class="row">
                 <div class="col-2">
@@ -11,8 +11,9 @@
                 <div class="col-2">
                     <label for="establishment">Establiment</label>
                     <select class="form-control" name="establishment" aria-label="Establiment" id="establishment">
-                       
-                            <option>Habitació</option>
+                        @foreach(getEstablishments() as $establishment)
+                            <option value="{{ $establishment->id }}">{{ $establishment->name }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -51,7 +52,7 @@
                 </div>
             </div>
 
-          
+
             <button aria-label="Guardar" class="btn btn-success" type="submit">Guardar</button>
         </div>
     </form>
