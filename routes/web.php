@@ -60,7 +60,7 @@ Route::get('/admin/room/{id}/delete', [RoomController::class, 'delete'])->name('
  * RUTES ROL LLOGATER
  ***************************/
 Route::get('/user', function () { return view('user.index'); })->name('user.index');
-Route::get('/admin/rooms/show/{id?}', [RoomController::class, 'show'])->name('room.show');
+Route::get('/rooms/show/{id?}', [RoomController::class, 'show'])->name('room.show');
 Route::get('/user/create', [RoomController::class, 'create'])->name('user.create');
 Route::get('/user/rooms', [RoomController::class, 'index'])->name('user.rooms');
 

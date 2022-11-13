@@ -28,8 +28,28 @@ class StoreRoomRequest extends FormRequest
             'description' => 'required|max:250',
             'address' => 'required|max:250',
             'price' => 'required',
-            'capacity' => 'required',
+            'occupancy' => 'required',
             'establishment_id' => 'required',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'S\'ha d\'introduïr el nom',
+            'address.required' => 'S\'ha d\'introduïr l\'adreça',
+            'description.required' => 'S\'ha d\'introduïr la descripció',
+            'price.required' => 'S\'ha d\'introduïr el preu',
+            'occupancy.required' => 'S\'ha d\'introduïr la capacitat',
+            'establishment_id.required' => 'S\'ha d\'introduïr el tipus d\'edifici',
+            'name.max' => 'El nom ha de tenir una longitud màxima de 250 caracters',
+            'address.max' => 'L\'adreça ha de tenir una longitud màxima de 250 caracters',
+            'description.max' => 'La descripció ha de tenir una longitud màxima de 250 caracters',
         ];
     }
 }

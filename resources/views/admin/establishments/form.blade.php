@@ -63,10 +63,10 @@
             </div>
 
             @if($readonly == null)
-            <button class="btn btn-primary" type="submit">Guardar</button>
+            <button class="btn btn-primary" type="submit"><i class="fa fa-floppy-disk"></i> Guardar</button>
             @endif
 
-            <a href="{{ route('admin.establishments') }}" class="btn btn-secondary" >Enrere</a>
+            <a href="{{ route('admin.establishments') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Enrere</a>
         </div>
     </form>
 </x-app>

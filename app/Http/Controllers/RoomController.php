@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\Booking;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
 use App\Models\User;
@@ -20,7 +21,7 @@ class RoomController extends Controller
 		else
         {
             $user_id = auth()->user() != null ? auth()->user()->id : null;
-			$users = $this->getUsersRooms($user_id);	//Codi d'usuari hardcoded
+			$users = $this->getUsersRooms($user_id);
         }
 
         return view('admin.rooms.index', ['users' => $users]);
@@ -131,5 +132,17 @@ class RoomController extends Controller
         }])->when($id !== null, function ($q) use ($id) {
             return $q->where('id', $id);
         })->whereNull('deleted_at')->get();
+    }
+
+    private function getBookingsByRoom($id = null)
+    {
+        $ret = [];
+
+        if($id != null)
+        {
+            $ret = Booking::query()->where([['room_id', '=', $id], ['date_booking', '>', date_create()]])->all();
+        }
+
+        return $ret;
     }
 }

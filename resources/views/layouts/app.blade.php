@@ -9,6 +9,7 @@
 
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -63,13 +64,13 @@
 
         @if (Auth::check())
         <div class="navbar-nav ml-auto action-buttons">
-            <a href="{{ route('users.edit', ['id' => auth()->user()->id]) }}" class="nav-link mr-4">{{ auth()->user()->name }}</a>
-			<a href="{{ route('logout') }}" class="btn btn-primary">Tanca sessió</a>
+            <a href="{{ route('users.edit', ['id' => auth()->user()->id]) }}" class="nav-link mr-4"><i class="fa fa-user"></i> {{ auth()->user()->name }}</a>
+			<a href="{{ route('logout') }}" class="btn btn-danger "><i class="fa fa-power-off"></i> Tanca sessió</a>
         </div>
         @else
 		<div class="navbar-nav ml-auto action-buttons">
 			<div class="nav-item dropdown">
-				<a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle mr-4">Entrar</a>
+				<a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle mr-4"><i class="fa fa-user"></i> Entrar</a>
                 <div class="dropdown-menu action-form">
 					<form action="{{ route('login') }}" method="post">
 						@csrf
@@ -82,13 +83,13 @@
 						</div>
 						<input type="submit" class="btn btn-primary btn-block" value="Iniciar sessió">
 						<div class="text-center mt-2">
-							<a href="#">No recordes la teva contrassenya?</a>
+							<a href="#"><i class="fa fa-key"></i> No recordes la teva contrassenya?</a>
 						</div>
 					</form>
                 </div>
 			</div>
 			<div class="nav-item dropdown">
-				<a href="{{ route('register') }}" class="btn btn-primary">Registrar-se</a>
+				<a href="{{ route('register') }}" class="btn btn-primary"><i class="fa fa-user"></i> Registrar-se</a>
 				<!--<a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle sign-up-btn">Registrar-se</a>
                 <div class="dropdown-menu action-form">
 					<form action="{{ route('register') }}" method="post">

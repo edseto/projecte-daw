@@ -64,8 +64,9 @@
                 </div>
             </div>
 
-            <button class="btn btn-primary" type="submit">Guardar</button>
-            <a href="{{ route('admin.rooms') }}" class="btn btn-secondary" >Enrere</a>
+            <button class="btn btn-primary" type="submit"><i class="fa fa-floppy-disk"></i> Guardar</button>
+            
+            <a href="{{ route('admin.users') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Enrere</a>
         </div>
     </form>
 </x-app>
