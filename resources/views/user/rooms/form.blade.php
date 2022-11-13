@@ -1,6 +1,6 @@
 <x-app>
     <h1 >Formulari alta d'una habitació</h1>
-    <form class="c-form" action="{{ route('room.create') }}" method="post">
+    <form class="c-form" action="{{ route('room.store') }}" method="post">
         @csrf
         <div class="form-group">
             <div class="row">
@@ -54,6 +54,8 @@
 
 
             <button aria-label="Guardar" class="btn btn-success" type="submit">Guardar</button>
+            <a href="{{ route('admin.rooms') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Enrere</a>
+            
         </div>
     </form>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">

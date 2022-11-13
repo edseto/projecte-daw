@@ -19,4 +19,9 @@ class Room extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    /*public function services()
+    {
+        return $this->morphToMany(Service::class, 'room_has_service');
+    }*/
 }

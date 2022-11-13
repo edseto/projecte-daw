@@ -66,7 +66,7 @@
 
             <button class="btn btn-primary" type="submit"><i class="fa fa-floppy-disk"></i> Guardar</button>
             
-            <a href="{{ route('admin.users') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Enrere</a>
+            <a href="{{ route('admin.rooms') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Enrere</a>
         </div>
     </form>
 </x-app>

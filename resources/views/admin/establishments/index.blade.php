@@ -1,5 +1,5 @@
 <x-app>
-    <h1>Llistat de usuaris per a poder administrar</h1>
+    <h1>Llistat de edificis per a poder administrar</h1>
     <a href="/admin/" class="btn btn-primary"><i class="fa fa-hammer"></i> Administració</a>
     <a href="{{ route('establishment.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nou edifici</a>
     <table class="table table-light">

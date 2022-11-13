@@ -7,7 +7,6 @@ use App\Models\Booking;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
@@ -51,7 +50,10 @@ class RoomController extends Controller
         $room->name = $request->input('name');
         $room->description = $request->input('description');
         $room->address = $request->input('address');
-        $room->photo = $request->input('photo');
+        if($request->hasFile('photo')){
+            $room->photo = $request->photo->getClientOriginalName();
+            $request->photo->storeAs('images', $request->photo->getClientOriginalName());
+        }
         $room->occupancy = $request->input('occupancy');
         $room->price = $request->input('price');
         $room->comments = $request->input('comments');
@@ -104,7 +106,10 @@ class RoomController extends Controller
         $room->name = $request->input('name');
         $room->description = $request->input('description');
         $room->address = $request->input('address');
-        $room->photo = $request->input('photo');
+        if($request->hasFile('photo')){
+            $room->photo = $request->photo->getClientOriginalName();
+            $request->photo->storeAs('images', $request->photo->getClientOriginalName());
+        }
         $room->occupancy = $request->input('occupancy');
         $room->price = $request->input('price');
         $room->comments = $request->input('comments');
