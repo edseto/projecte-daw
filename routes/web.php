@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EstablishmentController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\SiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ use App\Http\Controllers\RoomController;
 /************************
  * RUTES GENERALS
  ************************/
-Route::get('/', function () { return view('welcome'); })->name('landing');
+Route::get('/', [SiteController::class, 'index'])->name('landing');
 Route::post('/login', [UsersController::class, 'login'])->name('login');
 Route::get('/logout', [UsersController::class, 'logout'])->name('logout');
 Route::post('/signup', [UsersController::class, 'signup'])->name('signup');
