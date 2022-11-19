@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-6">
                 @if(strlen($room->photo) > 0)
-                <img class="fluid img-thumbnail" src="{{ url(asset('/images/' . $room->photo)) }}" alt="{{ $room->photo }}">
+                <img class="fluid img-thumbnail" src="{{ asset('assets/img/about/' . $room->photo) }}" alt="{{ $room->photo }}">
                 @else
                 <img class="fluid img-thumbnail" src="https://s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2019/05/20152451/Mandarin-Oriental-Hong-Kong-3.jpg" alt="">
                 @endif
@@ -29,10 +29,10 @@
                     <h6><b>Adreça:</b> <span>{{$room->establishment->address }},</span> <span>{{$room->address}}</span></h6>
                     <h6><b>Capacitat:</b> <span>{{$room->occupancy}} persones</span></h6>
                     <h6><b>Descripció:</b> <span>{{$room->description}}</span></h6>
-                    @if($room->roomHasServices != null)
+                    @if($room->roomServices != null)
                     <h6 style="display:inline;"><b>Serveis:</b></h6>
                     <p style="display:inline;">
-                        @foreach($room->roomHasServices as $rhs)
+                        @foreach($room->roomServices as $rhs)
                             <span class="badge badge-info">{{$rhs->service->name}}</span> 
                         @endforeach
                     </p>
