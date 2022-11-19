@@ -20,8 +20,8 @@ class Room extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /*public function services()
+    public function roomHasServices()
     {
-        return $this->morphToMany(Service::class, 'room_has_service');
-    }*/
+        return $this->hasMany(RoomHasService::class, 'room_id');
+    }
 }
