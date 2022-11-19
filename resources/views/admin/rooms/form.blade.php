@@ -34,9 +34,14 @@
                     <label for="address">Adreça</label>
                     <input class="form-control c-input" name="address" type="text" aria-label="Adreça" id="address" value="{{ $room->address }}"/>
                 </div>
-                <div class="col-6">
+                <div class="col-3">
                     <label for="photo">Imatge de l'habitació</label>
                     <input type="file" class="form-control-file c-input" id="photo" name="photo" aria-label="Imatge de l'habitació">
+                </div>
+                <div class="col-3">
+                    @if(strlen($room->photo) > 0)
+                        <img class="fluid img-thumbnail" src="{{ storage_path() . '/app/images/' . $room->photo }}" alt="{{ $room->photo }}" style="max-width: 170px; max-height: 170px;">
+                    @endif
                 </div>
             </div>
             <div class="row">
