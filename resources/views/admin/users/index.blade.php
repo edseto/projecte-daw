@@ -19,7 +19,22 @@
                 <td>{{$user->profile_photo}}</td>
                 <td>{{$user->username}}</td>
                 <td>{{$user->name}}</td>
-                <td>{{$user->role}}</td>
+                <td>
+                        @switch($user->role)
+                            @case(800)
+                                {{'Administrador'}}
+                                @break
+                            @case(700)
+                                {{'Llogater'}}
+                                @break
+                            @case(600)
+                                {{'Client'}}
+                                @break
+                            @default
+                                {{'Client'}}
+
+                        @endswitch
+                </td>
                 <td>
                     <a href="{{ route('users.edit', ['id' => $user->id]) }}">Editar</a>
                 </td>

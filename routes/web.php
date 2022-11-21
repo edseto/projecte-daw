@@ -22,10 +22,11 @@ use App\Http\Controllers\SiteController;
  * RUTES GENERALS
  ************************/
 Route::get('/', [SiteController::class, 'index'])->name('landing');
-Route::post('/login', [UsersController::class, 'login'])->name('login');
-Route::get('/logout', [UsersController::class, 'logout'])->name('logout');
-Route::post('/signup', [UsersController::class, 'signup'])->name('signup');
-Route::get('/register', [UsersController::class, 'register'])->name('register');
+Route::get('/login', [SiteController::class, 'login'])->name('login');
+Route::post('/signin', [SiteController::class, 'signin'])->name('signin');
+Route::get('/logout', [SiteController::class, 'logout'])->name('logout');
+Route::post('/signup', [SiteController::class, 'signup'])->name('signup');
+Route::get('/register', [SiteController::class, 'register'])->name('register');
 
 
 /***************************

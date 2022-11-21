@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-3">
                     @if(strlen($room->photo) > 0)
-                        <img class="fluid img-thumbnail" src="{{ storage_path() . '/app/images/' . $room->photo }}" alt="{{ $room->photo }}" style="max-width: 170px; max-height: 170px;">
+                        <img class="fluid img-thumbnail" src="{{ asset('assets/img/uploaded/' . $room->photo) }}" alt="{{ $room->photo }}" style="max-width: 170px; max-height: 170px;">
                     @endif
                 </div>
             </div>
