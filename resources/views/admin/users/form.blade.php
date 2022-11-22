@@ -81,4 +81,47 @@
             <a href="{{ route('admin.users') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Enrere</a>
         </div>
     </form>
+
+        <h2>Habitacions gestionades per l'usuari</h2>
+        <table class="table table-light">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Nom</th>
+                <th>Descripció</th>
+                <th>Hotel</th>
+                <th>Ciutat</th>
+                <th>Adreça</th>
+                <th>Capacitat</th>
+                <th>Preu</th>
+                <th> </th>
+                <th> </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($rooms[0]->rooms as $room)
+                @php $establishment = $room->establishment()->get()->first(); @endphp
+                <tr>
+                    <td></td>
+                    <td>{{$room->name}}</td>
+                    <td>{{$room->description}}</td>
+                    <td>{{$establishment->name}}</td>
+                    <td>{{$establishment->city}}</td>
+                    <td>{{$establishment->address}}</td>
+                    <td>{{$room->occupancy}}</td>
+                    <td>{{$room->price}}</td>
+                    <td>
+                        <a href="{{ route('room.show', ['id' => $room->id]) }}">Detalls</a>
+                    </td>
+                    <td>
+                        <a href="{{ route('room.edit', ['id' => $room->id]) }}">Editar</a>
+                    </td>
+                    <td>
+                        <a href="{{ route('room.delete', ['id' => $room->id]) }}">Borrar</a>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+
 </x-app>

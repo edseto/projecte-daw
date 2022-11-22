@@ -95,9 +95,15 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->first();
+        $rooms = User::with(['rooms' => function ($q) {
+            return $q->whereNull('deleted_at');
+        }])->when($id !== null, function ($q) use ($id) {
+            return $q->where('id', $id);
+        })->whereNull('deleted_at')->get();
+        
         if($user != null)
         {
-            return view('admin.users.form', ['user' => $user]);
+            return view('admin.users.form', ['user' => $user, 'rooms' => $rooms]);
         } else {
             abort('404');
         }
