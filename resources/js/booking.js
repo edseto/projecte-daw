@@ -1,3 +1,5 @@
+import datepicker from 'js-datepicker';
+
 $('document').ready(function() {
     /*$('#datepicker').datepicker({
             format: "dd/mm/yyyy",

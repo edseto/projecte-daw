@@ -1,6 +1,6 @@
 <x-app>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>-->
     <script src="{{ asset('resources/js/booking.js') }}" crossorigin="anonymous"></script>
     <div class="container">
         <div class="row">
@@ -10,7 +10,7 @@
                 @else
                 <img class="fluid img-thumbnail" src="https://s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2019/05/20152451/Mandarin-Oriental-Hong-Kong-3.jpg" alt="">
                 @endif
-                <p><span class="badge badge-dark">Llogater: {{ $room->user->name }} </span> (<a href="mailto:{{ $room->user->username }}">{{ $room->user->username }}</a>)</p>
+                <p><span class="badge rounded-pill bg-dark">Llogater: {{ $room->user->name }} </span> (<a href="mailto:{{ $room->user->username }}">{{ $room->user->username }}</a>)</p>
             </div>
             <div class="col-6">
                 <h2><b>{{$room->name}}</b> <span>{{$room->establishment->name }}</span></h2>
@@ -25,7 +25,7 @@
                     <h6 style="display:inline;"><b>Serveis:</b></h6>
                     <p style="display:inline;">
                         @foreach($room->roomServices as $rhs)
-                            <span class="badge badge-info">{{$rhs->service->name}}</span> 
+                            <span class="badge rounded-pill bg-info">{{$rhs->service->name}}</span> 
                         @endforeach
                     </p>
                     @endif
