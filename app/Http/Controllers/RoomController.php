@@ -52,7 +52,7 @@ class RoomController extends Controller
         $room->address = $request->input('address');
         if($request->hasFile('photo')){
             $room->photo = $request->photo->getClientOriginalName();
-            $request->photo->storeAs('public/images', $request->photo->getClientOriginalName());
+            $request->photo->storeAs('public/assets/img/uploaded', $request->photo->getClientOriginalName());
         }
         $room->occupancy = $request->input('occupancy');
         $room->price = $request->input('price');
@@ -108,7 +108,7 @@ class RoomController extends Controller
         $room->address = $request->input('address');
         if($request->hasFile('photo')){
             $room->photo = $request->photo->getClientOriginalName();
-            $request->photo->storeAs('public/images', $request->photo->getClientOriginalName());
+            $request->photo->storeAs('public/assets/img/uploaded', $request->photo->getClientOriginalName());
         }
         $room->occupancy = $request->input('occupancy');
         $room->price = $request->input('price');
