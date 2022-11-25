@@ -17,15 +17,18 @@ class BookingController extends Controller
     {
         //
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    
+    public function getBookingsByRoom($id)
     {
-        //
+        //TODO: Buscar tots els dies reservats per id d'habitació i retornar-los en format js
+        $ret = [];
+
+        if($id != null)
+        {
+            $ret = Booking::query()->where([['room_id', '=', $id], ['date_booking', '>', date_create()]])->all();
+        }
+
+        return json_encode($ret);
     }
 
     /**
@@ -36,7 +39,32 @@ class BookingController extends Controller
      */
     public function store(StoreBookingRequest $request)
     {
-        //
+        $booking = new Booking();
+
+        $user_id = auth()->user() != null ? auth()->user()->id : null;
+        $booking->user_id = $user_id;
+        $booking->room_id = $request->input('room_id');
+        $booking->total_price = $request->input('total_price');
+        $booking->people_amount = $request->input('people_amount');
+        if($request->input('initial_date') != null)
+        {
+            $day = explode('/', $request->input('initial_date'))[0];
+            $month = explode('/', $request->input('initial_date'))[1];
+            $year = explode('/', $request->input('initial_date'))[2];
+            $booking->date_booking = date_create($year.'-'.$month.'-'.$day);
+        }
+        else
+        {
+            $booking->date_booking = now();
+        }
+        
+        $booking->created_at = now();
+        $booking->updated_at = now();
+
+        $booking->save();
+
+        //TODO: Missatge reserva correcta
+        return redirect()->route('landing');
     }
 
     /**
@@ -46,17 +74,6 @@ class BookingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Booking $booking)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Booking  $booking
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Booking $booking)
     {
         //
     }

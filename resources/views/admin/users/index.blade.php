@@ -39,7 +39,7 @@
                     <a href="{{ route('users.edit', ['id' => $user->id]) }}">Editar</a>
                 </td>
                 <td>
-                    <a href="{{ route('users.delete', ['id' => $user->id]) }}">Borrar</a>
+                    <a class="btn_delete" href="{{ route('users.delete', ['id' => $user->id]) }}">Borrar</a>
                 </td>
             </tr>
         @endforeach

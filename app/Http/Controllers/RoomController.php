@@ -138,16 +138,4 @@ class RoomController extends Controller
             return $q->where('id', $id);
         })->whereNull('deleted_at')->get();
     }
-
-    private function getBookingsByRoom($id = null)
-    {
-        $ret = [];
-
-        if($id != null)
-        {
-            $ret = Booking::query()->where([['room_id', '=', $id], ['date_booking', '>', date_create()]])->all();
-        }
-
-        return $ret;
-    }
 }

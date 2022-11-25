@@ -1,7 +1,6 @@
 <x-app>
     <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>-->
-    <script src="{{ asset('resources/js/booking.js') }}" crossorigin="anonymous"></script>
     <div class="container">
         <div class="row">
             <div class="col-6">
@@ -21,7 +20,7 @@
                     <h6><b>Adreça:</b> <span>{{$room->establishment->address }},</span> <span>{{$room->address}}</span></h6>
                     <h6><b>Capacitat:</b> <span>{{$room->occupancy}} persones</span></h6>
                     <h6><b>Descripció:</b> <span>{{$room->description}}</span></h6>
-                    @if($room->roomServices != null)
+                    @if($room->roomServices != null && count($room->roomServices) > 0)
                     <h6 style="display:inline;"><b>Serveis:</b></h6>
                     <p style="display:inline;">
                         @foreach($room->roomServices as $rhs)
@@ -40,10 +39,25 @@
             </div>
             <div id="div-form" class="col-12" style="display:none;">
                 <hr />
-                <form action="">
-                    <label for="datepicker">Escull el dia / dies</label>
-                    <input type="text" name="datepicker" id="datepicker" class="form-control" /> <!--TODO: Fer datepicker -->
-                    <button type="submit" class="btn btn-success btn-block">Fes la reserva</button>
+                <form action="{{ route('booking.store') }}" method="post">
+                    @csrf
+                    <div class="row">
+                        <div class="col-12"><p>Escull el dia / dies</p></div>
+                        <div class="col-6">
+                            <label for="initial_date">Data inicial</label>
+                            <input type="text" name="initial_date" id="initial_date" class="form-control" />
+                        </div>
+                        <div class="col-6">
+                            <label for="final_date" id="final_date_label" style="display:none;">Data final</label>
+                            <input type="text" name="final_date" id="final_date" class="form-control" style="display:none;"/>  
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" id="btn_book" class="btn btn-success btn-block" disabled>Fes la reserva</button>
+                        </div>
+                        <input id="room_id" name="room_id" type="hidden" value="{{ $room->id }}">
+                        <input id="total_price" name="total_price" type="hidden" value="{{ $room->price }}">
+                        <input id="people_amount" name="people_amount" type="hidden" value="{{ $room->occupancy }}">
+                    </div>
                 </form>
             </div>
         </div>

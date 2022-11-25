@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\EstablishmentController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\RoomController;
@@ -70,3 +71,6 @@ Route::get('/user/rooms', [RoomController::class, 'index'])->name('user.rooms');
 /***************************
  * RUTES ROL CLIENT(TURISTA)
  ***************************/
+Route::post('/booking/store', [BookingController::class, 'store'])->name('booking.store');
+Route::get('/booking/destroy', [BookingController::class, 'destroy'])->name('booking.destroy');
+Route::get('/booking/getDates/{id?}', [BookingController::class, 'getBookingsByRoom'])->name('booking.getDates');

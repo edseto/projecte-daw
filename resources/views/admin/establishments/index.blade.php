@@ -26,7 +26,7 @@
                     <a href="{{ route('establishment.edit', ['id' => $establishment->id]) }}">Editar</a>
                 </td>
                 <td>
-                    <a href="{{ route('establishment.delete', ['id' => $establishment->id]) }}">Borrar</a>
+                    <a class="btn_delete" href="{{ route('establishment.delete', ['id' => $establishment->id]) }}">Borrar</a>
                 </td>
             </tr>
         @endforeach

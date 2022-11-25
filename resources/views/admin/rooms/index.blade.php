@@ -17,6 +17,7 @@
                 <th>Preu</th>
                 <th> </th>
                 <th> </th>
+                <th> </th>
             </tr>
             </thead>
             <tbody>
@@ -38,7 +39,7 @@
                         <a href="{{ route('room.edit', ['id' => $room->id]) }}">Editar</a>
                     </td>
                     <td>
-                        <a href="{{ route('room.delete', ['id' => $room->id]) }}">Borrar</a>
+                        <a class="btn_delete" href="{{ route('room.delete', ['id' => $room->id]) }}">Borrar</a>
                     </td>
                 </tr>
             @endforeach
