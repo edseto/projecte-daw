@@ -17,14 +17,19 @@
                     <label for="username">Nom d'usuari</label>
                     <input class="form-control" name="username" id="username" aria-label="Nom d'usuari" type="text" value="" />
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-4">
                     <label for="password">Contrassenya</label>
                     <input class="form-control" name="password" id="password" aria-label="Contrassenya" type="password" />
                 </div>
-            </div>            
-
-            <button class="btn btn-primary" type="submit">Entra</button>
-            <a href="/" class="btn btn-secondary" >Enrere</a>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <button class="btn btn-primary" type="submit">Entra</button>
+                    <a href="/" class="btn btn-secondary" >Enrere</a>
+                </div>
+            </div>
         </div>
     </form>
 </x-app>

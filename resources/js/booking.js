@@ -1,8 +1,11 @@
 import datepicker from 'js-datepicker';
 import { split } from 'lodash';
 
-const initial_datepicker = null;
-const final_datepicker = null;
+const customDays = ['Dil.', 'Dim.', 'Dix.', 'Dij.', 'Div.', 'Dis.', 'Diu.'];
+const customMonths = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'];
+
+let initial_datepicker = null;
+let final_datepicker = null;
 let occupated_dates = [];
 
 
@@ -16,30 +19,40 @@ $('document').ready(function() {
     $('#book').on("click", function(){ $('#div-form').show(); $("#book").hide(); });
 });
 
-
-function GetUnavailableDates()
+async function GetUnavailableDates()
 {
     let url = '/booking/getDates/';
     let id = parseInt($("#room_id").val());
 
-    /*$.ajax({
-        method: 'post',
+    await $.ajax({
+        method: 'get',
         url: url + id,
-        success: function(data){ console.log(data); }
-    });*/
+        success: function(data){
+            data = data.replace(']', '').replace('"','').replace('[', '');
+            let date = split(data, ' ')[0];
+            let year = parseInt(split(date, '-')[0]);
+            let month = parseInt(split(date, '-')[1]);
+            let day = parseInt(split(date, '-')[2]);
+            occupated_dates.push(new Date(year, month - 1, day));
+            console.log(occupated_dates);
+        }
+    });
 
-    //TODO: Fer crida ajax per consultar les dates ocupades de l'habitació actual, i posar-les en format data a la variable global
-    occupated_dates = [
-        new Date(2022, (11 - 1), 28),
-        new Date(2022, (11 - 1), 29),
-        new Date(2022, (11 - 1), 30),
-    ];
+    /*occupated_dates = [
+        new Date(2022, (11), 8),
+        new Date(2022, (11), 9),
+        new Date(2022, (11), 10),
+    ];*/
+}
+
+async function GetUnavailableDatesAjax(){
+    //TODO: Fer crida awaitable per poder seleccio0nar dates ocupades
 }
 
 function GetMinumumDate()
 {
     let result = $('#initial_date').val();
-    let ret = new Date(2022, 11 - 1, 1);
+    let ret = new Date();
 
     if(result != '')
     {
@@ -71,12 +84,18 @@ function InitializeInitialDate()
             } else {
                 $('#btn_book').prop('disabled', true);
             }
+
+            if(date != null){
+                final_datepicker.setMin(date);
+            }            
         },
         formatter: (input, date, instance) => {
             const value = date.toLocaleDateString()
             input.value = value // => '1/1/2099'
         },
         showAllDates: true,
+        customDays: customDays,
+        customMonths: customMonths,
         disabledDates: occupated_dates,
         events: occupated_dates,
         minDate: new Date()
@@ -105,6 +124,8 @@ function InitializeFinalDate()
             input.value = value // => '1/1/2099'
         },
         showAllDates: true,
+        customDays: customDays,
+        customMonths: customMonths,
         disabledDates: occupated_dates,
         events: occupated_dates,
         minDate: GetMinumumDate()

@@ -25,7 +25,12 @@ class BookingController extends Controller
 
         if($id != null)
         {
-            $ret = Booking::query()->where([['room_id', '=', $id], ['date_booking', '>', date_create()]])->all();
+            $query = Booking::query()->where([['room_id', '=', $id], ['initial_date', '>=', date_create()]])->get();
+
+            foreach($query as $obj)
+            {
+                array_push($ret, $obj->initial_date);
+            }
         }
 
         return json_encode($ret);
@@ -46,16 +51,29 @@ class BookingController extends Controller
         $booking->room_id = $request->input('room_id');
         $booking->total_price = $request->input('total_price');
         $booking->people_amount = $request->input('people_amount');
+
         if($request->input('initial_date') != null)
         {
             $day = explode('/', $request->input('initial_date'))[0];
             $month = explode('/', $request->input('initial_date'))[1];
             $year = explode('/', $request->input('initial_date'))[2];
-            $booking->date_booking = date_create($year.'-'.$month.'-'.$day);
+            $booking->initial_date = date_create($year.'-'.$month.'-'.$day);
         }
         else
         {
-            $booking->date_booking = now();
+            $booking->initial_date = now();
+        }
+
+        if($request->input('final_date') != null)
+        {
+            $day = explode('/', $request->input('final_date'))[0];
+            $month = explode('/', $request->input('final_date'))[1];
+            $year = explode('/', $request->input('final_date'))[2];
+            $booking->final_date = date_create($year.'-'.$month.'-'.$day);
+        }
+        else
+        {
+            $booking->final_date = now();
         }
         
         $booking->created_at = now();

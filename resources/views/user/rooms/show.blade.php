@@ -1,8 +1,17 @@
 <x-app>
-    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>-->
     <div class="container">
         <div class="row">
+            <div class="col-12">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
             <div class="col-6">
                 @if(strlen($room->photo) > 0)
                 <img class="fluid img-thumbnail" src="{{ asset('assets/img/uploaded/' . $room->photo) }}" alt="{{ $room->photo }}">
@@ -42,21 +51,25 @@
                 <form action="{{ route('booking.store') }}" method="post">
                     @csrf
                     <div class="row">
-                        <div class="col-12"><p>Escull el dia / dies</p></div>
-                        <div class="col-6">
+                        <div class="col-12"><p><b>Detalls de la teva reserva</b></p></div>
+                        <div class="col-2">
+                            <label for="people_amount">Número d'ocupants.</label>
+                            <input id="people_amount" name="people_amount" type="number" class="form-control" placeholder="(màx. {{ $room->occupancy }})" min="1" max="{{ $room->occupancy }}"/>
+                        </div>
+                        <div class="col-5">
                             <label for="initial_date">Data inicial</label>
                             <input type="text" name="initial_date" id="initial_date" class="form-control" />
                         </div>
-                        <div class="col-6">
+                        <div class="col-5">
                             <label for="final_date" id="final_date_label" style="display:none;">Data final</label>
                             <input type="text" name="final_date" id="final_date" class="form-control" style="display:none;"/>  
                         </div>
                         <div class="col-12">
                             <button type="submit" id="btn_book" class="btn btn-success btn-block" disabled>Fes la reserva</button>
                         </div>
-                        <input id="room_id" name="room_id" type="hidden" value="{{ $room->id }}">
-                        <input id="total_price" name="total_price" type="hidden" value="{{ $room->price }}">
-                        <input id="people_amount" name="people_amount" type="hidden" value="{{ $room->occupancy }}">
+
+                        <input id="room_id" name="room_id" type="hidden" value="{{ $room->id }}" />
+                        <input id="total_price" name="total_price" type="hidden" value="{{ $room->price }}" />
                     </div>
                 </form>
             </div>
