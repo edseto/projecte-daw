@@ -120,4 +120,8 @@ class SiteController extends Controller
         return redirect('/');
     }
 
+    public function termes(){
+        return view('common.termes');
+    }
+
 }

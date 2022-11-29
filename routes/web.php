@@ -28,6 +28,7 @@ Route::post('/signin', [SiteController::class, 'signin'])->name('signin');
 Route::get('/logout', [SiteController::class, 'logout'])->name('logout');
 Route::post('/signup', [SiteController::class, 'signup'])->name('signup');
 Route::get('/register', [SiteController::class, 'register'])->name('register');
+Route::get('/termesicondicions', [SiteController::class, 'termes'])->name('termes');
 
 
 /***************************
