@@ -50,6 +50,7 @@
 					<a href="{{ route('admin.index') }}" class="nav-item nav-link">Administració</a>
 				@endif
 			@endif
+			<a href="{{ route('termes') }}" class="nav-item nav-link">Termes i condicions</a>
 		</div>
         <!--
 		<form class="navbar-form form-inline">
