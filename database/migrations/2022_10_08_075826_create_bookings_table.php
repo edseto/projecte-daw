@@ -20,8 +20,8 @@ return new class extends Migration
                 $table->id();
                 $table->foreignIdFor(User::class, 'user_id');
                 $table->foreignIdFor(Room::class, 'room_id');
-                $table->timestamp('initial_date');
-                $table->timestamp('final_date');
+                $table->timestamp('initial_date')->useCurrent()->useCurrentOnUpdate();
+                $table->timestamp('final_date')->useCurrent()->useCurrentOnUpdate();
                 $table->integer('occupancy');
                 $table->decimal('total_price');
                 $table->timestamps();
