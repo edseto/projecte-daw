@@ -64,7 +64,7 @@ Route::get('/admin/room/{id}/delete', [RoomController::class, 'delete'])->name('
  * RUTES ROL LLOGATER
  ***************************/
 Route::get('/user', function () { return view('user.index'); })->name('user.index');
-Route::get('/rooms/show/{id?}', [RoomController::class, 'show'])->name('room.show');
+Route::get('/room/{id?}', [RoomController::class, 'show'])->name('room.show');
 Route::get('/user/create', [RoomController::class, 'create'])->name('user.create');
 Route::get('/user/rooms', [RoomController::class, 'index'])->name('user.rooms');
 
@@ -72,6 +72,7 @@ Route::get('/user/rooms', [RoomController::class, 'index'])->name('user.rooms');
 /***************************
  * RUTES ROL CLIENT(TURISTA)
  ***************************/
+Route::get('/booking/{id}', [BookingController::class, 'show'])->name('booking.show');
 Route::post('/booking/store', [BookingController::class, 'store'])->name('booking.store');
-Route::get('/booking/destroy', [BookingController::class, 'destroy'])->name('booking.destroy');
+Route::get('/booking/destroy/{id}', [BookingController::class, 'destroy'])->name('booking.destroy');
 Route::get('/booking/getDates/{id?}', [BookingController::class, 'getBookingsByRoom'])->name('booking.getDates');

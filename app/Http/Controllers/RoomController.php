@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
-use App\Models\Booking;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
+use App\Models\RoomServices;
 use App\Models\User;
 
 class RoomController extends Controller
@@ -62,6 +62,17 @@ class RoomController extends Controller
 
         $room->save();
 
+        if($request->input('services') != null)
+        {
+            foreach($request->input('services') as $srv)
+            {
+                $service = new RoomServices();
+                $service->service_id = $srv;
+                $service->room_id = $room->id;
+                $service->save();
+            }
+        }
+
         return redirect()->route('admin.rooms');
     }
 
@@ -117,6 +128,18 @@ class RoomController extends Controller
         $room->updated_at = now();
 
         $room->save();
+
+        RoomServices::where('room_id', $room->id)->delete();
+        if($request->input('services') != null)
+        {
+            foreach($request->input('services') as $srv)
+            {
+                $service = new RoomServices();
+                $service->service_id = $srv;
+                $service->room_id =  $room->id;
+                $service->save();
+            }
+        }
 
         return redirect()->route('admin.rooms');
     }

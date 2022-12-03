@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
+use DateInterval;
+use DatePeriod;
 use App\Models\Booking;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
@@ -20,16 +23,25 @@ class BookingController extends Controller
     
     public function getBookingsByRoom($id)
     {
-        //TODO: Buscar tots els dies reservats per id d'habitació i retornar-los en format js
         $ret = [];
 
         if($id != null)
         {
-            $query = Booking::query()->where([['room_id', '=', $id], ['initial_date', '>=', date_create()]])->get();
+            $today = date_create();
+            $bookings = Booking::query()->where([['room_id', '=', $id], ['initial_date', '>=', $today->modify('-1 day')]])->whereNull('deleted_at')->get();
 
-            foreach($query as $obj)
+            foreach($bookings as $obj)
             {
-                array_push($ret, $obj->initial_date);
+                $initial_date = new DateTime($obj->initial_date);
+                $final_date = new DateTime($obj->final_date);
+                $final_date = $final_date->modify( '+1 day' ); 
+
+                $interval = new DateInterval('P1D');
+                $daterange = new DatePeriod($initial_date, $interval, $final_date);
+
+                foreach($daterange as $date){
+                    array_push($ret, $date);
+                }
             }
         }
 
@@ -114,8 +126,20 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Booking $booking)
+    public function destroy(int $id)
     {
-        //
+        $booking = Booking::query()->where('id', $id)->get()->first();
+        $user_id = auth()->user() != null ? auth()->user()->id : null;
+
+        if($user_id == $booking->user_id)
+        {
+            $booking->deleted_at = now();
+            $booking->save();
+
+            //TODO: Missatge reserva cancelada
+        }
+
+        //TODO: Missatge error
+        return redirect()->route('landing');
     }
 }

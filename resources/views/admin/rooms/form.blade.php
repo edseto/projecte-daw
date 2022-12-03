@@ -45,13 +45,28 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-3">
                     <label for="occupancy">Capacitat</label>
                     <input class="form-control c-input" name="occupancy" id="occupancy" aria-label="Capacitat" type="number" value="{{ $room->occupancy }}" />
                 </div>
-                <div class="col-6">
+                <div class="col-3">
                     <label for="price">Preu</label>
                     <input class="form-control c-input" name="price" type="text" id="price" aria-label="Preu" value="{{ $room->price }}" />
+                </div>
+                <div class="col-6">
+                    <?php
+                    $services_id = [];
+                    foreach($room->roomServices as $srv)
+                    {
+                        array_push($services_id, $srv->service_id);
+                    }
+                    ?>
+                    <label for="services">Serveis</label>
+                    <select class="select2 form-control c-input" name="services[]" id="services" multiple="multiple">
+                        @foreach(getServices() as $service)
+                            <option value="{{ $service->id }}" {{ in_array($service->id, $services_id) ? "selected" : "" }} >{{ $service->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
 
@@ -69,9 +84,20 @@
                 </div>
             </div>
 
-            <button class="btn btn-primary" type="submit"><i class="fa fa-floppy-disk"></i> Guardar</button>
-            
-            <a href="{{ route('admin.rooms') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Enrere</a>
+            <div class="row">
+                <div class="col-12">
+                    <label class="form-check-label"><input type="checkbox" required="required"> Accepto els <a href="{{ route('termes') }}" target="_blank">termes i condicions</a> d'aquest lloc web</label>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+                <div class="col-12">
+                    <button aria-label="Guardar" class="btn btn-primary" type="submit"><i class="fa fa-floppy-disk"></i> Guardar</button>
+                    <a href="{{ route('admin.rooms') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Enrere</a>
+                </div>
+            </div>
         </div>
     </form>
 </x-app>

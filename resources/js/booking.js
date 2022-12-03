@@ -12,11 +12,15 @@ let occupated_dates = [];
 $('document').ready(function() {
     GetUnavailableDates();
 
-    InitializeInitialDate();
-    InitializeFinalDate();
+    InitializeInitialDatepicker();
+    InitializeFinalDatepicker();
 
     //Other events
     $('#book').on("click", function(){ $('#div-form').show(); $("#book").hide(); });
+});
+
+$('window').on(function() {
+    //
 });
 
 async function GetUnavailableDates()
@@ -28,25 +32,23 @@ async function GetUnavailableDates()
         method: 'get',
         url: url + id,
         success: function(data){
-            data = data.replace(']', '').replace('"','').replace('[', '');
-            let date = split(data, ' ')[0];
-            let year = parseInt(split(date, '-')[0]);
-            let month = parseInt(split(date, '-')[1]);
-            let day = parseInt(split(date, '-')[2]);
-            occupated_dates.push(new Date(year, month - 1, day));
-            console.log(occupated_dates);
+            let dates = [];
+
+            for(let i = 0; i < JSON.parse(data).length; i++)
+            {
+                let curr_data = JSON.parse(data)[i].date;
+                let date = split(curr_data, ' ')[0];
+                let year = parseInt(split(date, '-')[0]);
+                let month = parseInt(split(date, '-')[1]);
+                let day = parseInt(split(date, '-')[2]);
+                dates.push(new Date(year, month - 1, day));
+            }
+            
+            occupated_dates = dates;
         }
     });
 
-    /*occupated_dates = [
-        new Date(2022, (11), 8),
-        new Date(2022, (11), 9),
-        new Date(2022, (11), 10),
-    ];*/
-}
-
-async function GetUnavailableDatesAjax(){
-    //TODO: Fer crida awaitable per poder seleccio0nar dates ocupades
+    console.log(occupated_dates);
 }
 
 function GetMinumumDate()
@@ -65,8 +67,10 @@ function GetMinumumDate()
     return ret;
 }
 
-function InitializeInitialDate()
+function InitializeInitialDatepicker()
 {
+    GetUnavailableDates();
+
     $('#initial_date').keypress(function(e) {
         e.preventDefault();
         return false;
@@ -102,8 +106,10 @@ function InitializeInitialDate()
     });
 }
 
-function InitializeFinalDate()
+function InitializeFinalDatepicker()
 {
+    GetUnavailableDates();
+
     $('#final_date').keypress(function(e) {
         e.preventDefault();
         return false;

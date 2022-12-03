@@ -9,6 +9,7 @@ class RoomServices extends Model
 {
     use HasFactory;
     protected $table = 'room_services';
+    public $timestamps = false;
 
     public function room()
     {
