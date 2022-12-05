@@ -125,4 +125,29 @@
             </tbody>
         </table>
 
+        <!-- Reservas -->
+        <h2>Habitacions reservades per l'usuari</h2>
+        <table class="table table-light">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Habitació</th>
+                <th>Data</th>
+                <th>Persones</th>
+                <th>Preu</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($user->bookings()->get() as $booking)
+                <tr>
+                    <td></td>
+                    <td>{{$booking->room_id}}</td>
+                    <td>{{$booking->date_booking}}</td>
+                    <td>{{$booking->people_amount}}</td>
+                    <td>{{$booking->total_price}}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+
 </x-app>
