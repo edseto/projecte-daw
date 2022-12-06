@@ -1,6 +1,7 @@
 import './bootstrap';
 import './booking';
 import './room';
+import './user';
 
 let delete_dialog = "Estàs segur/a de que ho vols borrar?";
 

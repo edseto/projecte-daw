@@ -19,10 +19,6 @@ $('document').ready(function() {
     $('#book').on("click", function(){ $('#div-form').show(); $("#book").hide(); });
 });
 
-$('window').on(function() {
-    //
-});
-
 async function GetUnavailableDates()
 {
     let url = '/booking/getDates/';
@@ -49,6 +45,7 @@ async function GetUnavailableDates()
     });
 
     console.log(occupated_dates);
+    return occupated_dates;
 }
 
 function GetMinumumDate()
@@ -102,7 +99,8 @@ function InitializeInitialDatepicker()
         customMonths: customMonths,
         disabledDates: occupated_dates,
         events: occupated_dates,
-        minDate: new Date()
+        minDate: new Date(),
+        //beforeShowDay: function(d) { console.log(d); }
     });
 }
 
@@ -134,6 +132,7 @@ function InitializeFinalDatepicker()
         customMonths: customMonths,
         disabledDates: occupated_dates,
         events: occupated_dates,
-        minDate: GetMinumumDate()
+        minDate: GetMinumumDate(),
+        //beforeShowDay: function(d) { console.log(d); }
     });
 }

@@ -18,6 +18,13 @@
         </div>
     @endif
     <h1>Formulari d'edició d'usuaris</h1>
+    <div class="col-9 m-auto text-justify">
+        <a href="#user-rooms" class="btn btn-primary" id="btn-rooms">Habitacions</a>
+        <a href="#user-bookings" class="btn btn-secondary" id="btn-bookings">Reserves</a>
+        <a href="#user-booking-requests" class="btn btn-primary" id="btn-requests">Sol·licitud de reserves</a>
+        <hr />
+    </div>
+
     <form class="c-form" action="{{ $user->id !== null ? route('users.update') : route('users.store') }}" method="post">
 
         @csrf
@@ -82,7 +89,8 @@
         </div>
     </form>
 
-        <h2>Habitacions gestionades per l'usuari</h2>
+    <div class="col-9 m-auto text-justify" id="user-rooms" style="display:none;">
+    <h2>Habitacions gestionades per l'usuari</h2>
         <table class="table table-light">
             <thead>
             <tr>
@@ -124,7 +132,9 @@
             @endforeach
             </tbody>
         </table>
+    </div>
 
+    <div class="col-9 m-auto text-justify" id="user-bookings" style="display:none;">
         <!-- Reservas -->
         <h2>Habitacions reservades per l'usuari</h2>
         <table class="table table-light">
@@ -134,20 +144,34 @@
                 <th>Habitació</th>
                 <th>Data</th>
                 <th>Persones</th>
-                <th>Preu</th>
+                <th>Preu €</th>
+                <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
-            @foreach($user->bookings()->get() as $booking)
+            @foreach($user->bookings()->orderBy('initial_date', 'desc')->get() as $booking)
                 <tr>
                     <td></td>
-                    <td>{{$booking->room_id}}</td>
-                    <td>{{$booking->date_booking}}</td>
+                    <td>{{$booking->room->name}} - {{$booking->room->establishment->name}}</td>
+                    <td>De {{$booking->initial_date}} a {{ $booking->final_date }}</td>
                     <td>{{$booking->people_amount}}</td>
-                    <td>{{$booking->total_price}}</td>
+                    <td>{{$booking->total_price}} €</td>
+                    <td><a href="{{ route('booking.show', ['id' => $booking->id]) }}">Detalls</a></td>
+                    <td>
+                        @if($booking->initial_date >= date('Y-m-d'))
+                        <a href="{{ route('booking.destroy', ['id' => $booking->id]) }}">Anular</a>
+                        @endif
+                    </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
+    </div>
+
+    <div class="col-9 m-auto text-justify" id="user-booking-requests" style="display:none;">
+        <!-- TODO: Reservas recibidas a mis habitaciones -->
+    </div>
+
 
 </x-app>

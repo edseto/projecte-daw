@@ -100,12 +100,17 @@ class BookingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Booking  $booking
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Booking $booking)
+    public function show(int $id)
     {
-        //
+        $booking = Booking::query()->where('id', $id)->get()->first();
+
+        if($booking != null)
+        {
+            //TODO: Mostrar detalls reserva
+        }
     }
 
     /**
@@ -131,7 +136,7 @@ class BookingController extends Controller
         $booking = Booking::query()->where('id', $id)->get()->first();
         $user_id = auth()->user() != null ? auth()->user()->id : null;
 
-        if($user_id == $booking->user_id)
+        if($user_id == $booking->user_id && $booking->initial_date >= date('y-M-d'))
         {
             $booking->deleted_at = now();
             $booking->save();
