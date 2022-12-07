@@ -6,6 +6,7 @@ use App\Http\Controllers\EstablishmentController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,14 @@ Route::post('/admin/room/store', [RoomController::class, 'store'])->name('room.s
 Route::get('/admin/room/{id?}', [RoomController::class, 'edit'])->name('room.edit');
 Route::post('/admin/room/update', [RoomController::class, 'update'])->name('room.update');
 Route::get('/admin/room/{id}/delete', [RoomController::class, 'delete'])->name('room.delete');
+
+Route::get('/admin/services', [ServiceController::class, 'index'])->name('admin.services');
+Route::get('/admin/service/create', [ServiceController::class, 'create'])->name('service.create');
+Route::get('/admin/service/{id?}', [ServiceController::class, 'edit'])->name('service.edit');
+Route::post('/admin/service/store', [ServiceController::class, 'store'])->name('service.store');
+Route::get('/admin/service/{id}/delete', [ServiceController::class, 'delete'])->name('service.delete');
+Route::post('/admin/service/update', [ServiceController::class, 'update'])->name('service.update');
+
 
 
 /***************************
