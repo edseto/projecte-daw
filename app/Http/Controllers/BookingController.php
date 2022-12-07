@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use DateTime;
 use DateInterval;
 use DatePeriod;
@@ -93,7 +94,7 @@ class BookingController extends Controller
 
         $booking->save();
 
-        //TODO: Missatge reserva correcta
+        Session::flash('message', "La reserva s'ha completat correctament!");
         return redirect()->route('landing');
     }
 
@@ -136,15 +137,18 @@ class BookingController extends Controller
         $booking = Booking::query()->where('id', $id)->get()->first();
         $user_id = auth()->user() != null ? auth()->user()->id : null;
 
-        if($user_id == $booking->user_id && $booking->initial_date >= date('y-M-d'))
+        if($booking != null && $user_id == $booking->user_id)
         {
             $booking->deleted_at = now();
             $booking->save();
 
-            //TODO: Missatge reserva cancelada
+            Session::flash('message', "La reserva s'ha anul·lat correctament!");
         }
-
-        //TODO: Missatge error
+        else
+        {
+            Session::flash('error', "S'ha produït un error en la reserva.");
+        }
+        
         return redirect()->route('landing');
     }
 }

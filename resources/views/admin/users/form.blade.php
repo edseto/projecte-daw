@@ -144,17 +144,17 @@
                 <th>Habitació</th>
                 <th>Data</th>
                 <th>Persones</th>
-                <th>Preu €</th>
+                <th>Preu</th>
                 <th></th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            @foreach($user->bookings()->orderBy('initial_date', 'desc')->get() as $booking)
+            @foreach($user->bookings()->whereNull('deleted_at')->orderBy('initial_date', 'desc')->get() as $booking)
                 <tr>
                     <td></td>
                     <td>{{$booking->room->name}} - {{$booking->room->establishment->name}}</td>
-                    <td>De {{$booking->initial_date}} a {{ $booking->final_date }}</td>
+                    <td>De {{ $booking->initial_date }} a {{ $booking->final_date }}</td>
                     <td>{{$booking->people_amount}}</td>
                     <td>{{$booking->total_price}} €</td>
                     <td><a href="{{ route('booking.show', ['id' => $booking->id]) }}">Detalls</a></td>

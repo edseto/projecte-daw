@@ -10,19 +10,19 @@ let occupated_dates = [];
 
 
 $('document').ready(function() {
-    GetUnavailableDates();
-
-    InitializeInitialDatepicker();
-    InitializeFinalDatepicker();
-
     //Other events
-    $('#book').on("click", function(){ $('#div-form').show(); $("#book").hide(); });
+    $('#book').on('click', function(){
+        $('#div-form').show();
+        $(this).hide();
+    });
+
+    GetUnavailableDates();
 });
 
 async function GetUnavailableDates()
 {
     let url = '/booking/getDates/';
-    let id = parseInt($("#room_id").val());
+    let id = parseInt($('#room_id').val());
 
     await $.ajax({
         method: 'get',
@@ -43,9 +43,9 @@ async function GetUnavailableDates()
             occupated_dates = dates;
         }
     });
-
-    console.log(occupated_dates);
-    return occupated_dates;
+    
+    InitializeInitialDatepicker();
+    InitializeFinalDatepicker();
 }
 
 function GetMinumumDate()
@@ -66,73 +66,71 @@ function GetMinumumDate()
 
 function InitializeInitialDatepicker()
 {
-    GetUnavailableDates();
-
     $('#initial_date').keypress(function(e) {
         e.preventDefault();
         return false;
     });
 
-    //Initial datepicker definition
-    initial_datepicker = datepicker('#initial_date', {
-        onSelect: (instance, date) => {
-            $('#final_date_label').show();
-            $('#final_date').show();
+    if($('#initial_date').length == 1){
+        //Initial datepicker definition
+        initial_datepicker = datepicker('#initial_date', {
+            onSelect: (instance, date) => {
+                $('#final_date_label').show();
+                $('#final_date').show();
 
-            if($('#initial_date').val() != '' && $('#final_date').val() != '')
-            {
-                $('#btn_book').removeAttr('disabled');
-            } else {
-                $('#btn_book').prop('disabled', true);
-            }
+                if($(this).val() != '' && $('#final_date').val() != '')
+                {
+                    $('#btn_book').removeAttr('disabled');
+                } else {
+                    $('#btn_book').prop('disabled', true);
+                }
 
-            if(date != null){
-                final_datepicker.setMin(date);
-            }            
-        },
-        formatter: (input, date, instance) => {
-            const value = date.toLocaleDateString()
-            input.value = value // => '1/1/2099'
-        },
-        showAllDates: true,
-        customDays: customDays,
-        customMonths: customMonths,
-        disabledDates: occupated_dates,
-        events: occupated_dates,
-        minDate: new Date(),
-        //beforeShowDay: function(d) { console.log(d); }
-    });
+                if(date != null){
+                    final_datepicker.setMin(date);
+                }
+            },
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString()
+                input.value = value // => '1/1/2099'
+            },
+            showAllDates: true,
+            customDays: customDays,
+            customMonths: customMonths,
+            disabledDates: occupated_dates,
+            events: occupated_dates,
+            minDate: new Date(),
+        });
+    }
 }
 
 function InitializeFinalDatepicker()
 {
-    GetUnavailableDates();
-
     $('#final_date').keypress(function(e) {
         e.preventDefault();
         return false;
     });
 
-    //Final datepicker definition
-    final_datepicker = datepicker('#final_date', {
-        onSelect: (instance, date) => {
-            if($('#initial_date').val() != '' && $('#final_date').val() != '')
-            {
-                $('#btn_book').removeAttr('disabled');
-            } else {
-                $('#btn_book').prop('disabled', true);
-            }
-        },
-        formatter: (input, date, instance) => {
-            const value = date.toLocaleDateString()
-            input.value = value // => '1/1/2099'
-        },
-        showAllDates: true,
-        customDays: customDays,
-        customMonths: customMonths,
-        disabledDates: occupated_dates,
-        events: occupated_dates,
-        minDate: GetMinumumDate(),
-        //beforeShowDay: function(d) { console.log(d); }
-    });
+    if($('#final_date').length == 1){
+        //Final datepicker definition
+        final_datepicker = datepicker('#final_date', {
+            onSelect: (instance, date) => {
+                if($('#initial_date').val() != '' && $('#final_date').val() != '')
+                {
+                    $('#btn_book').removeAttr('disabled');
+                } else {
+                    $('#btn_book').prop('disabled', true);
+                }
+            },
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString()
+                input.value = value // => '1/1/2099'
+            },
+            showAllDates: true,
+            customDays: customDays,
+            customMonths: customMonths,
+            disabledDates: occupated_dates,
+            events: occupated_dates,
+            minDate: GetMinumumDate(),
+        });
+    }
 }

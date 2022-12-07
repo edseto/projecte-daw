@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use App\Models\Establishment;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateEstablishmentRequest;
@@ -134,6 +135,7 @@ class EstablishmentController extends Controller
             $user->save();
         }
 
+        Session::flash('message', "El edifici s'ha borrat correctament!");
         return redirect()->route('admin.establishments');
     }
 

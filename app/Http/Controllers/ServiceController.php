@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use App\Models\Service;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
@@ -106,6 +107,7 @@ class ServiceController extends Controller
         $service = Service::query()->where('id', $id)->get()->first();
         $service->delete();
 
+        Session::flash('message', "El servei s'ha borrat correctament!");
         return redirect()->route('admin.services');
     }
 }

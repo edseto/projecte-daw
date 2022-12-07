@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use App\Models\Room;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
@@ -150,6 +151,7 @@ class RoomController extends Controller
         $room->deleted_at = now();
         $room->save();
 
+        Session::flash('message', "L'habitació/apartament s'ha borrat correctament!");
         return redirect()->route('admin.rooms');
     }
 
