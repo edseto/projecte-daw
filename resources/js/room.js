@@ -1,6 +1,3 @@
-/*window.jQuery = window.$ = require('jquery');*/
-import select2 from 'select2';
-
 $('document').ready(function() {
     InitializeSelect2();
 });
