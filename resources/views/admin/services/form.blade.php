@@ -21,7 +21,7 @@
                     <input class="form-control c-input" id="name" aria-label="Nom Servei" name="name" type="text" value="{{ $service->name }}" />
                 </div>
 
-            <button class="btn btn-primary" type="submit"><i class="fa fa-floppy-disk"></i> Guardar</button>
+            <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Guardar</button>
             
             <a href="{{ route('admin.services') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Enrere</a>
         </div>

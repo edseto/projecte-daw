@@ -29,7 +29,7 @@ class BookingController extends Controller
         if($id != null)
         {
             $today = date_create();
-            $bookings = Booking::query()->where([['room_id', '=', $id], ['initial_date', '>=', $today->modify('-1 day')]])->whereNull('deleted_at')->get();
+            $bookings = Booking::query()->where([['room_id', '=', $id], ['final_date', '>=', $today->modify('-1 day')]])->whereNull('deleted_at')->get();
 
             foreach($bookings as $obj)
             {
@@ -106,11 +106,15 @@ class BookingController extends Controller
      */
     public function show(int $id)
     {
-        $booking = Booking::query()->where('id', $id)->get()->first();
+        $booking = Booking::query()->where('id', $id)->whereNull('deleted_at')->get()->first();
 
         if($booking != null)
         {
-            //TODO: Mostrar detalls reserva
+            return view('booking.show', ['booking' => $booking]);
+        }
+        else
+        {
+            abort('404');
         }
     }
 

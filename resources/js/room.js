@@ -1,5 +1,5 @@
-/*window.jQuery = window.$ = require('jquery');
-import select2 from 'select2';*/
+/*window.jQuery = window.$ = require('jquery');*/
+import select2 from 'select2';
 
 $('document').ready(function() {
     InitializeSelect2();
@@ -7,9 +7,8 @@ $('document').ready(function() {
 
 function InitializeSelect2()
 {
-    let domObj = $('.select2');
-    if(domObj.length > 0){
-        domObj.select2({
+    if($('.select2').length > 0){
+        $('.select2').select2({
             placeholder: "Serveis de l'habitació",
             allowClear: true,
             theme: "classic"

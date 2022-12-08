@@ -23,7 +23,7 @@
             <div class="col-6">
                 <h2>
                     <b>{{$room->name}}</b> <span>{{ $room->establishment->name }}</span>
-                    @if(auth()->user() != null && (auth()->user()->role_id == 800 || auth()->user()->id == $room->user_id))
+                    @if(auth()->user() != null && (auth()->user()->role == 800 || auth()->user()->id == $room->user_id))
                         <a href="{{ route('room.edit', ['id' => $room->id]) }}" class="btn btn-primary"><i class="fa fa-edit"></i> Edita</a>
                     @endif
                 </h2>

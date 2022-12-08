@@ -59,6 +59,7 @@ class RoomController extends Controller
         $room->price = $request->input('price');
         $room->comments = $request->input('comments');
         $room->establishment_id = $request->input('establishment');
+        $room->created_at = now();
         $room->updated_at = now();
 
         $room->save();

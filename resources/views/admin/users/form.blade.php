@@ -17,11 +17,18 @@
             </ul>
         </div>
     @endif
-    <h1>Formulari d'edició d'usuaris</h1>
     <div class="col-9 m-auto text-justify">
-        <a href="#user-rooms" class="btn btn-primary" id="btn-rooms">Habitacions</a>
-        <a href="#user-bookings" class="btn btn-secondary" id="btn-bookings">Reserves</a>
-        <a href="#user-booking-requests" class="btn btn-primary" id="btn-requests">Sol·licitud de reserves</a>
+        <h1>Formulari d'edició d'usuaris</h1>
+        <br />        
+        @if((auth()->user()->role == 800 || auth()->user()->role == 700) && $user->id != null)
+            <a href="#user-rooms" class="btn btn-primary" id="btn-rooms">Les meves habitacions</a>
+        @endif
+        @if($user->id != null)
+        <a href="#user-bookings" class="btn btn-secondary" id="btn-bookings">Reserves realitzades</a>
+        @endif
+        @if((auth()->user()->role == 800 || auth()->user()->role == 700) && $user->id != null)
+            <a href="#user-booking-requests" class="btn btn-primary" id="btn-requests">Reserves rebudes</a>
+        @endif
         <hr />
     </div>
 
@@ -82,15 +89,21 @@
             </div>
 
             @if($readonly == null)
-            <button class="btn btn-primary" type="submit"><i class="fa fa-floppy-disk"></i> Guardar</button>
+            <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Guardar</button>
             @endif
 
-            <a href="{{ route('admin.users') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Enrere</a>
+            @if(auth()->user()->role == 800)
+                <a href="{{ route('admin.users') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Enrere</a>
+            @else
+                <a href="{{ route('landing') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Enrere</a>
+            @endif
         </div>
     </form>
 
+    @if((auth()->user()->role == 800 || auth()->user()->role == 700) && $user != null)
     <div class="col-9 m-auto text-justify" id="user-rooms" style="display:none;">
-    <h2>Habitacions gestionades per l'usuari</h2>
+    <a href="{{ route('room.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Nova habitació</a>
+    <h2>Les meves habitacions</h2>
         <table class="table table-light">
             <thead>
             <tr>
@@ -108,7 +121,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($rooms[0]->rooms as $room)
+            @foreach($user->rooms as $room)
                 @php $establishment = $room->establishment()->get()->first(); @endphp
                 <tr>
                     <td></td>
@@ -133,10 +146,11 @@
             </tbody>
         </table>
     </div>
+    @endif
 
+    @if($user->id != null)
     <div class="col-9 m-auto text-justify" id="user-bookings" style="display:none;">
-        <!-- Reservas -->
-        <h2>Habitacions reservades per l'usuari</h2>
+        <h2>Reserves realitzades</h2>
         <table class="table table-light">
             <thead>
             <tr>
@@ -168,10 +182,44 @@
             </tbody>
         </table>
     </div>
+    @endif
 
+    @if((auth()->user()->role == 800 || auth()->user()->role == 700) && $user->id != null)
     <div class="col-9 m-auto text-justify" id="user-booking-requests" style="display:none;">
-        <!-- TODO: Reservas recibidas a mis habitaciones -->
+        <!-- Reservas -->
+        <h2>Reserves rebudes</h2>
+        <table class="table table-light">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Habitació</th>
+                <th>Data</th>
+                <th>Persones</th>
+                <th>Preu</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($user->bookings()->whereNull('deleted_at')->orderBy('initial_date', 'desc')->get() as $booking)
+                <tr>
+                    <td></td>
+                    <td>{{$booking->room->name}} - {{$booking->room->establishment->name}}</td>
+                    <td>De {{ $booking->initial_date }} a {{ $booking->final_date }}</td>
+                    <td>{{$booking->people_amount}}</td>
+                    <td>{{$booking->total_price}} €</td>
+                    <td><a href="{{ route('booking.show', ['id' => $booking->id]) }}">Detalls</a></td>
+                    <td>
+                        @if($booking->initial_date >= date('Y-m-d'))
+                        <a href="{{ route('booking.destroy', ['id' => $booking->id]) }}">Anular</a>
+                        @endif
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     </div>
+    @endif
 
 
 </x-app>

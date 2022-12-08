@@ -94,8 +94,12 @@
 
             <div class="row">
                 <div class="col-12">
-                    <button aria-label="Guardar" class="btn btn-primary" type="submit"><i class="fa fa-floppy-disk"></i> Guardar</button>
-                    <a href="{{ route('admin.rooms') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Enrere</a>
+                    <button aria-label="Guardar" class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Guardar</button>
+                    @if(auth()->user()->role == 800)
+                        <a href="{{ route('admin.rooms') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Enrere</a>
+                    @else
+                        <a href="{{ route('landing') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Enrere</a>
+                    @endif
                 </div>
             </div>
         </div>
