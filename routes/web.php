@@ -45,7 +45,6 @@ Route::get('/admin/user/{id}', [UsersController::class, 'edit'])->name('users.ed
 Route::post('/admin/user/update', [UsersController::class, 'update'])->name('users.update');
 Route::get('/admin/user/{id}/delete', [UsersController::class, 'delete'])->name('users.delete');
 
-//Route::resource('admin/user', EstablishmentController::class);
 Route::get('/admin/establishments', [EstablishmentController::class, 'index'])->name('admin.establishments');
 Route::get('/admin/establishments/create', [EstablishmentController::class, 'create'])->name('establishment.create');
 Route::post('/admin/establishment/store', [EstablishmentController::class, 'store'])->name('establishment.store');
@@ -68,13 +67,11 @@ Route::get('/admin/service/{id}/delete', [ServiceController::class, 'delete'])->
 Route::post('/admin/service/update', [ServiceController::class, 'update'])->name('service.update');
 
 
-
 /***************************
  * RUTES ROL LLOGATER
  ***************************/
 Route::get('/user', function () { return view('user.index'); })->name('user.index');
 Route::get('/room/{id?}', [RoomController::class, 'show'])->name('room.show');
-Route::get('/user/create', [RoomController::class, 'create'])->name('user.create');
 Route::get('/user/rooms', [RoomController::class, 'index'])->name('user.rooms');
 
 
@@ -83,5 +80,5 @@ Route::get('/user/rooms', [RoomController::class, 'index'])->name('user.rooms');
  ***************************/
 Route::get('/booking/{id}', [BookingController::class, 'show'])->name('booking.show');
 Route::post('/booking/store', [BookingController::class, 'store'])->name('booking.store');
-Route::get('/booking/destroy/{id}', [BookingController::class, 'destroy'])->name('booking.destroy');
+Route::get('/booking/{id}/delete', [BookingController::class, 'destroy'])->name('booking.destroy');
 Route::get('/booking/getDates/{id?}', [BookingController::class, 'getBookingsByRoom'])->name('booking.getDates');

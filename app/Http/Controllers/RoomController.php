@@ -35,7 +35,7 @@ class RoomController extends Controller
     public function create()
     {
         $room = new Room();
-        return view('user.rooms.form', ['room' => $room]);
+        return view('admin.rooms.form', ['room' => $room]);
     }
 
     /**
@@ -49,16 +49,21 @@ class RoomController extends Controller
         $room = new Room();
 
         $room->name = $request->input('name');
-        $room->description = $request->input('description');
+        $room->description = strlen($request->input('description')) > 0 ? : "";
         $room->address = $request->input('address');
         if($request->hasFile('photo')){
             $room->photo = $request->photo->getClientOriginalName();
             $request->photo->storeAs('public/assets/img/uploaded', $request->photo->getClientOriginalName());
         }
+        else
+        {
+            $room->photo = "";
+        }
         $room->occupancy = $request->input('occupancy');
         $room->price = $request->input('price');
-        $room->comments = $request->input('comments');
+        $room->comments = strlen($request->input('comments')) > 0 ? : "";
         $room->establishment_id = $request->input('establishment');
+        $room->user_id = auth()->user()->id;
         $room->created_at = now();
         $room->updated_at = now();
 
@@ -117,7 +122,7 @@ class RoomController extends Controller
         $room = Room::query()->where('id', $request->input('id'))->get()->first();
 
         $room->name = $request->input('name');
-        $room->description = $request->input('description');
+        $room->description = strlen($request->input('description')) > 0 ? : "";
         $room->address = $request->input('address');
         if($request->hasFile('photo')){
             $room->photo = $request->photo->getClientOriginalName();
@@ -125,7 +130,7 @@ class RoomController extends Controller
         }
         $room->occupancy = $request->input('occupancy');
         $room->price = $request->input('price');
-        $room->comments = $request->input('comments');
+        $room->comments = strlen($request->input('comments')) > 0 ? : "";
         $room->establishment_id = $request->input('establishment');
         $room->updated_at = now();
 
