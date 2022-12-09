@@ -35,14 +35,7 @@ class BookingController extends Controller
             {
                 $initial_date = new DateTime($obj->initial_date);
                 $final_date = new DateTime($obj->final_date);
-                $final_date = $final_date->modify( '+1 day' ); 
-
-                $interval = new DateInterval('P1D');
-                $daterange = new DatePeriod($initial_date, $interval, $final_date);
-
-                foreach($daterange as $date){
-                    array_push($ret, $date);
-                }
+                $ret = getDatesBetween($initial_date, $final_date);
             }
         }
 
@@ -62,7 +55,7 @@ class BookingController extends Controller
         $user_id = auth()->user() != null ? auth()->user()->id : null;
         $booking->user_id = $user_id;
         $booking->room_id = $request->input('room_id');
-        $booking->total_price = $request->input('total_price');
+        $price = $request->input('total_price');
         $booking->people_amount = $request->input('people_amount');
 
         if($request->input('initial_date') != null)
@@ -88,6 +81,8 @@ class BookingController extends Controller
         {
             $booking->final_date = now();
         }
+
+        $booking->total_price = $price * count(getDatesBetween($booking->initial_date, $booking->final_date));
         
         $booking->created_at = now();
         $booking->updated_at = now();
