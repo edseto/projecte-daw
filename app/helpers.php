@@ -2,6 +2,7 @@
 
 use App\Models\Establishment;
 use App\Models\Service;
+use App\Models\Booking;
 use Illuminate\Database\Eloquent\Collection;
 
 function getEstablishments(): Collection
@@ -28,4 +29,10 @@ function getDatesBetween(DateTime $initial_date, DateTime $final_date): array
     }
 
     return $ret;
+}
+
+function getBookingsByRoom(int $id): Collection
+{
+    return Booking::query()->leftJoin('rooms', 'rooms.id', '=', 'bookings.room_id')->whereNull('bookings.deleted_at')->where(['rooms.user_id' => $id])
+        ->orderBy('initial_date', 'DESC')->get();
 }
