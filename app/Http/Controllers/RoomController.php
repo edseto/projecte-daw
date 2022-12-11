@@ -122,7 +122,7 @@ class RoomController extends Controller
         $room = Room::query()->where('id', $request->input('id'))->get()->first();
 
         $room->name = $request->input('name');
-        $room->description = strlen($request->input('description')) > 0 ? : "";
+        $room->description = strlen($request->input('description')) > 0 ? $request->input('description') : "";
         $room->address = $request->input('address');
         if($request->hasFile('photo')){
             $room->photo = $request->photo->getClientOriginalName();
@@ -130,7 +130,7 @@ class RoomController extends Controller
         }
         $room->occupancy = $request->input('occupancy');
         $room->price = $request->input('price');
-        $room->comments = strlen($request->input('comments')) > 0 ? : "";
+        $room->comments = strlen($request->input('comments')) > 0 ? $request->input('comments') : "";
         $room->establishment_id = $request->input('establishment');
         $room->updated_at = now();
 
