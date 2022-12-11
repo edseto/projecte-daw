@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use App\Models\Service;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
@@ -15,7 +16,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $services = Service::query()->get();
+        return view('admin.services.index', ['services' => $services]);
     }
 
     /**
@@ -25,7 +27,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        $service = new Service();
+        return view('admin.services.form', ['service' => $service]);
     }
 
     /**
@@ -36,7 +39,14 @@ class ServiceController extends Controller
      */
     public function store(StoreServiceRequest $request)
     {
-        //
+        $service = new Service();
+
+        $service->name = $request->input('name');
+
+        $service->save();
+
+        return redirect()->route('admin.services');
+       
     }
 
     /**
@@ -56,10 +66,17 @@ class ServiceController extends Controller
      * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function edit(Service $service)
+    public function edit($id)
     {
-        //
+        $service = Service::query()->where('id', $id)->first();
+
+        if($service) {
+            return view('admin.services.form', ['service' => $service]);
+        }
+
+        abort('404');
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -68,9 +85,15 @@ class ServiceController extends Controller
      * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateServiceRequest $request, Service $service)
-    {
-        //
+    public function update(UpdateServiceRequest $request)
+    {   
+        $service = Service::query()->where('id', $request->input('id'))->get()->first();
+
+        $service->name = $request->input('name');
+        $service->save();
+
+        return redirect()->route('admin.services');
+        
     }
 
     /**
@@ -79,8 +102,12 @@ class ServiceController extends Controller
      * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Service $service)
+    public function delete($id)
     {
-        //
+        $service = Service::query()->where('id', $id)->get()->first();
+        $service->delete();
+
+        Session::flash('message', "El servei s'ha borrat correctament!");
+        return redirect()->route('admin.services');
     }
 }

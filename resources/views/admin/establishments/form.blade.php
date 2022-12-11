@@ -63,7 +63,7 @@
             </div>
 
             @if($readonly == null)
-            <button class="btn btn-primary" type="submit"><i class="fa fa-floppy-disk"></i> Guardar</button>
+            <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Guardar</button>
             @endif
 
             <a href="{{ route('admin.establishments') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Enrere</a>

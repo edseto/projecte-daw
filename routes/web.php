@@ -6,6 +6,7 @@ use App\Http\Controllers\EstablishmentController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
 
 /*
@@ -51,7 +52,6 @@ Route::get('/admin/user/{id}', [UsersController::class, 'edit'])->name('users.ed
 Route::post('/admin/user/update', [UsersController::class, 'update'])->name('users.update');
 Route::get('/admin/user/{id}/delete', [UsersController::class, 'delete'])->name('users.delete');
 
-//Route::resource('admin/user', EstablishmentController::class);
 Route::get('/admin/establishments', [EstablishmentController::class, 'index'])->name('admin.establishments');
 Route::get('/admin/establishments/create', [EstablishmentController::class, 'create'])->name('establishment.create');
 Route::post('/admin/establishment/store', [EstablishmentController::class, 'store'])->name('establishment.store');
@@ -66,19 +66,31 @@ Route::get('/admin/room/{id?}', [RoomController::class, 'edit'])->name('room.edi
 Route::post('/admin/room/update', [RoomController::class, 'update'])->name('room.update');
 Route::get('/admin/room/{id}/delete', [RoomController::class, 'delete'])->name('room.delete');
 
+Route::get('/admin/services', [ServiceController::class, 'index'])->name('admin.services');
+Route::get('/admin/service/create', [ServiceController::class, 'create'])->name('service.create');
+Route::get('/admin/service/{id?}', [ServiceController::class, 'edit'])->name('service.edit');
+Route::post('/admin/service/store', [ServiceController::class, 'store'])->name('service.store');
+Route::get('/admin/service/{id}/delete', [ServiceController::class, 'delete'])->name('service.delete');
+Route::post('/admin/service/update', [ServiceController::class, 'update'])->name('service.update');
+
 
 /***************************
  * RUTES ROL LLOGATER
  ***************************/
 Route::get('/user', function () { return view('user.index'); })->name('user.index');
-Route::get('/rooms/show/{id?}', [RoomController::class, 'show'])->name('room.show');
-Route::get('/user/create', [RoomController::class, 'create'])->name('user.create');
+Route::get('/room/{id?}', [RoomController::class, 'show'])->name('room.show');
 Route::get('/user/rooms', [RoomController::class, 'index'])->name('user.rooms');
 
 
 /***************************
  * RUTES ROL CLIENT(TURISTA)
  ***************************/
+Route::get('/booking/{id}', [BookingController::class, 'show'])->name('booking.show');
 Route::post('/booking/store', [BookingController::class, 'store'])->name('booking.store');
+<<<<<<< HEAD
 Route::get('/booking/destroy', [BookingController::class, 'destroy'])->name('booking.destroy');
 Route::get('/booking/getDates/{id?}', [BookingController::class, 'getBookingsByRoom'])->name('booking.getDates');
+=======
+Route::get('/booking/{id}/delete', [BookingController::class, 'destroy'])->name('booking.destroy');
+Route::get('/booking/getDates/{id?}', [BookingController::class, 'getBookingsByRoom'])->name('booking.getDates');
+>>>>>>> 1dc4f359d8b967033b2b96f4cf2f4073bd8c8bde

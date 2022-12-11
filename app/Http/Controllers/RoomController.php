@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use App\Models\Room;
-use App\Models\Booking;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
+use App\Models\RoomServices;
 use App\Models\User;
 
 class RoomController extends Controller
@@ -34,7 +35,7 @@ class RoomController extends Controller
     public function create()
     {
         $room = new Room();
-        return view('user.rooms.form', ['room' => $room]);
+        return view('admin.rooms.form', ['room' => $room]);
     }
 
     /**
@@ -48,19 +49,36 @@ class RoomController extends Controller
         $room = new Room();
 
         $room->name = $request->input('name');
-        $room->description = $request->input('description');
+        $room->description = strlen($request->input('description')) > 0 ? : "";
         $room->address = $request->input('address');
         if($request->hasFile('photo')){
             $room->photo = $request->photo->getClientOriginalName();
             $request->photo->storeAs('public/assets/img/uploaded', $request->photo->getClientOriginalName());
         }
+        else
+        {
+            $room->photo = "";
+        }
         $room->occupancy = $request->input('occupancy');
         $room->price = $request->input('price');
-        $room->comments = $request->input('comments');
+        $room->comments = strlen($request->input('comments')) > 0 ? : "";
         $room->establishment_id = $request->input('establishment');
+        $room->user_id = auth()->user()->id;
+        $room->created_at = now();
         $room->updated_at = now();
 
         $room->save();
+
+        if($request->input('services') != null)
+        {
+            foreach($request->input('services') as $srv)
+            {
+                $service = new RoomServices();
+                $service->service_id = $srv;
+                $service->room_id = $room->id;
+                $service->save();
+            }
+        }
 
         return redirect()->route('admin.rooms');
     }
@@ -104,7 +122,7 @@ class RoomController extends Controller
         $room = Room::query()->where('id', $request->input('id'))->get()->first();
 
         $room->name = $request->input('name');
-        $room->description = $request->input('description');
+        $room->description = strlen($request->input('description')) > 0 ? : "";
         $room->address = $request->input('address');
         if($request->hasFile('photo')){
             $room->photo = $request->photo->getClientOriginalName();
@@ -112,11 +130,23 @@ class RoomController extends Controller
         }
         $room->occupancy = $request->input('occupancy');
         $room->price = $request->input('price');
-        $room->comments = $request->input('comments');
+        $room->comments = strlen($request->input('comments')) > 0 ? : "";
         $room->establishment_id = $request->input('establishment');
         $room->updated_at = now();
 
         $room->save();
+
+        RoomServices::where('room_id', $room->id)->delete();
+        if($request->input('services') != null)
+        {
+            foreach($request->input('services') as $srv)
+            {
+                $service = new RoomServices();
+                $service->service_id = $srv;
+                $service->room_id =  $room->id;
+                $service->save();
+            }
+        }
 
         return redirect()->route('admin.rooms');
     }
@@ -127,6 +157,7 @@ class RoomController extends Controller
         $room->deleted_at = now();
         $room->save();
 
+        Session::flash('message', "L'habitació/apartament s'ha borrat correctament!");
         return redirect()->route('admin.rooms');
     }
 

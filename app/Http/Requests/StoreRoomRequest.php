@@ -29,7 +29,7 @@ class StoreRoomRequest extends FormRequest
             'address' => 'required|max:250',
             'price' => 'required',
             'occupancy' => 'required',
-            'establishment_id' => 'required',
+            'establishment' => 'required',
         ];
     }
 
@@ -46,7 +46,7 @@ class StoreRoomRequest extends FormRequest
             'description.required' => 'S\'ha d\'introduïr la descripció',
             'price.required' => 'S\'ha d\'introduïr el preu',
             'occupancy.required' => 'S\'ha d\'introduïr la capacitat',
-            'establishment_id.required' => 'S\'ha d\'introduïr el tipus d\'edifici',
+            'establishment.required' => 'S\'ha d\'introduïr el tipus d\'edifici',
             'name.max' => 'El nom ha de tenir una longitud màxima de 250 caracters',
             'address.max' => 'L\'adreça ha de tenir una longitud màxima de 250 caracters',
             'description.max' => 'La descripció ha de tenir una longitud màxima de 250 caracters',

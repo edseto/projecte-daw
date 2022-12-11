@@ -5,16 +5,18 @@
                 @foreach($rooms as $room)
                 <div class="col mb-4">
                     <div class="card">
+                        <a href="{{ route('room.show', ['id' => $room->id]) }}">
                         @if(strlen($room->photo) > 0)
                             <img class="fluid img-thumbnail" src="{{ asset('assets/img/uploaded/' . $room->photo) }}" alt="{{ $room->photo }}">
                         @else
-                            <img class="fluid img-thumbnail" src="https://s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2019/05/20152451/Mandarin-Oriental-Hong-Kong-3.jpg" alt="">
+                            <img class="fluid img-thumbnail" src="{{ asset('assets/img/about/default_room.jpg') }}" alt="">
                         @endif
+                        </a>
                         <div class="card-body">
-                            <div class="clearfix mb-3"> <span class="float-start badge rounded-pill bg-dark">{{ $room->price }}&euro;</span> <span class="float-end small text-muted">Barcelona</span> </div>
+                            <div class="clearfix mb-3"> <span class="float-start badge rounded-pill bg-dark">{{ $room->price }}&euro;</span> <span class="float-end small text-muted">{{ $room->establishment->city }}</span> </div>
                             <h5 class="card-title">{{ $room->name }}</h5>
                             <div class="cart-text">{{ $room->description }}</div>
-                            <div class="d-grid gap-2 my-4"> <a href="{{ route('room.show', ['id' => $room->id]) }}" class="btn btn-success">Reserva ara</a> </div>
+                            <div class="d-grid gap-2 my-4"> <a href="{{ route('room.show', ['id' => $room->id]) }}" class="btn btn-success">Reserva</a> </div>
                         </div>
                     </div>
                 </div>

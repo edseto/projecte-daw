@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Session;
+use DateTime;
+use DateInterval;
+use DatePeriod;
 use App\Models\Booking;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
@@ -20,16 +24,18 @@ class BookingController extends Controller
     
     public function getBookingsByRoom($id)
     {
-        //TODO: Buscar tots els dies reservats per id d'habitació i retornar-los en format js
         $ret = [];
 
         if($id != null)
         {
-            $query = Booking::query()->where([['room_id', '=', $id], ['initial_date', '>=', date_create()]])->get();
+            $today = date_create();
+            $bookings = Booking::query()->where([['room_id', '=', $id], ['final_date', '>=', $today->modify('-1 day')]])->whereNull('deleted_at')->get();
 
-            foreach($query as $obj)
+            foreach($bookings as $obj)
             {
-                array_push($ret, $obj->initial_date);
+                $initial_date = new DateTime($obj->initial_date);
+                $final_date = new DateTime($obj->final_date);
+                $ret = getDatesBetween($initial_date, $final_date);
             }
         }
 
@@ -49,7 +55,7 @@ class BookingController extends Controller
         $user_id = auth()->user() != null ? auth()->user()->id : null;
         $booking->user_id = $user_id;
         $booking->room_id = $request->input('room_id');
-        $booking->total_price = $request->input('total_price');
+        $price = $request->input('total_price');
         $booking->people_amount = $request->input('people_amount');
 
         if($request->input('initial_date') != null)
@@ -75,25 +81,36 @@ class BookingController extends Controller
         {
             $booking->final_date = now();
         }
+
+        $booking->total_price = $price * count(getDatesBetween($booking->initial_date, $booking->final_date));
         
         $booking->created_at = now();
         $booking->updated_at = now();
 
         $booking->save();
 
-        //TODO: Missatge reserva correcta
+        Session::flash('message', "La reserva s'ha completat correctament!");
         return redirect()->route('landing');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Booking  $booking
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Booking $booking)
+    public function show(int $id)
     {
-        //
+        $booking = Booking::query()->where('id', $id)->whereNull('deleted_at')->get()->first();
+
+        if($booking != null)
+        {
+            return view('booking.show', ['booking' => $booking]);
+        }
+        else
+        {
+            abort('404');
+        }
     }
 
     /**
@@ -114,8 +131,23 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Booking $booking)
+    public function destroy(int $id)
     {
-        //
+        $booking = Booking::query()->where('id', $id)->get()->first();
+        $user_id = auth()->user() != null ? auth()->user()->id : null;
+
+        if($booking != null && $user_id == $booking->user_id)
+        {
+            $booking->deleted_at = now();
+            $booking->save();
+
+            Session::flash('message', "La reserva s'ha anul·lat correctament!");
+        }
+        else
+        {
+            Session::flash('error', "S'ha produït un error en la reserva.");
+        }
+        
+        return redirect()->route('landing');
     }
 }

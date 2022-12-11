@@ -10,43 +10,42 @@ let occupated_dates = [];
 
 
 $('document').ready(function() {
-    GetUnavailableDates();
-
-    InitializeInitialDate();
-    InitializeFinalDate();
-
     //Other events
-    $('#book').on("click", function(){ $('#div-form').show(); $("#book").hide(); });
+    $('#book').on('click', function(){
+        $('#div-form').show();
+        $(this).hide();
+    });
+
+    GetUnavailableDates();
 });
 
 async function GetUnavailableDates()
 {
     let url = '/booking/getDates/';
-    let id = parseInt($("#room_id").val());
+    let id = parseInt($('#room_id').val());
 
     await $.ajax({
         method: 'get',
         url: url + id,
         success: function(data){
-            data = data.replace(']', '').replace('"','').replace('[', '');
-            let date = split(data, ' ')[0];
-            let year = parseInt(split(date, '-')[0]);
-            let month = parseInt(split(date, '-')[1]);
-            let day = parseInt(split(date, '-')[2]);
-            occupated_dates.push(new Date(year, month - 1, day));
-            console.log(occupated_dates);
+            let dates = [];
+
+            for(let i = 0; i < JSON.parse(data).length; i++)
+            {
+                let curr_data = JSON.parse(data)[i].date;
+                let date = split(curr_data, ' ')[0];
+                let year = parseInt(split(date, '-')[0]);
+                let month = parseInt(split(date, '-')[1]);
+                let day = parseInt(split(date, '-')[2]);
+                dates.push(new Date(year, month - 1, day));
+            }
+            
+            occupated_dates = dates;
         }
     });
-
-    /*occupated_dates = [
-        new Date(2022, (11), 8),
-        new Date(2022, (11), 9),
-        new Date(2022, (11), 10),
-    ];*/
-}
-
-async function GetUnavailableDatesAjax(){
-    //TODO: Fer crida awaitable per poder seleccio0nar dates ocupades
+    
+    InitializeInitialDatepicker();
+    InitializeFinalDatepicker();
 }
 
 function GetMinumumDate()
@@ -65,69 +64,73 @@ function GetMinumumDate()
     return ret;
 }
 
-function InitializeInitialDate()
+function InitializeInitialDatepicker()
 {
     $('#initial_date').keypress(function(e) {
         e.preventDefault();
         return false;
     });
 
-    //Initial datepicker definition
-    initial_datepicker = datepicker('#initial_date', {
-        onSelect: (instance, date) => {
-            $('#final_date_label').show();
-            $('#final_date').show();
+    if($('#initial_date').length == 1){
+        //Initial datepicker definition
+        initial_datepicker = datepicker('#initial_date', {
+            onSelect: (instance, date) => {
+                $('#final_date_label').show();
+                $('#final_date').show();
 
-            if($('#initial_date').val() != '' && $('#final_date').val() != '')
-            {
-                $('#btn_book').removeAttr('disabled');
-            } else {
-                $('#btn_book').prop('disabled', true);
-            }
+                if($(this).val() != '' && $('#final_date').val() != '')
+                {
+                    $('#btn_book').removeAttr('disabled');
+                } else {
+                    $('#btn_book').prop('disabled', true);
+                }
 
-            if(date != null){
-                final_datepicker.setMin(date);
-            }            
-        },
-        formatter: (input, date, instance) => {
-            const value = date.toLocaleDateString()
-            input.value = value // => '1/1/2099'
-        },
-        showAllDates: true,
-        customDays: customDays,
-        customMonths: customMonths,
-        disabledDates: occupated_dates,
-        events: occupated_dates,
-        minDate: new Date()
-    });
+                if(date != null){
+                    final_datepicker.setMin(date);
+                }
+            },
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString()
+                input.value = value // => '1/1/2099'
+            },
+            showAllDates: true,
+            customDays: customDays,
+            customMonths: customMonths,
+            disabledDates: occupated_dates,
+            events: occupated_dates,
+            minDate: new Date(),
+        });
+    }
 }
 
-function InitializeFinalDate()
+function InitializeFinalDatepicker()
 {
     $('#final_date').keypress(function(e) {
         e.preventDefault();
         return false;
     });
 
-    //Final datepicker definition
-    final_datepicker = datepicker('#final_date', {
-        onSelect: (instance, date) => {
-            if($('#initial_date').val() != '' && $('#final_date').val() != '')
-            {
-                $('#btn_book').removeAttr('disabled');
-            } else {
-                $('#btn_book').prop('disabled', true);
-            }
-        },
-        formatter: (input, date, instance) => {
-            const value = date.toLocaleDateString()
-            input.value = value // => '1/1/2099'
-        },
-        showAllDates: true,
-        customDays: customDays,
-        customMonths: customMonths,
-        disabledDates: occupated_dates,
-        events: occupated_dates,
-        minDate: GetMinumumDate()
-    });
+    if($('#final_date').length == 1){
+        //Final datepicker definition
+        final_datepicker = datepicker('#final_date', {
+            onSelect: (instance, date) => {
+                if($('#initial_date').val() != '' && $('#final_date').val() != '')
+                {
+                    $('#btn_book').removeAttr('disabled');
+                } else {
+                    $('#btn_book').prop('disabled', true);
+                }
+            },
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString()
+                input.value = value // => '1/1/2099'
+            },
+            showAllDates: true,
+            customDays: customDays,
+            customMonths: customMonths,
+            disabledDates: occupated_dates,
+            events: occupated_dates,
+            minDate: GetMinumumDate(),
+        });
+    }
 }

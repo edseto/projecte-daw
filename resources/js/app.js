@@ -1,10 +1,12 @@
 import './bootstrap';
 import './booking';
+import './room';
+import './user';
 
-let delete_dialog = "Estàs segur/a de que ho vols borrar?";
+let delete_dialog = 'Estàs segur/a de que ho vols borrar?';
 
 $('document').ready(function() {
-    $(".btn_delete").on('click', function(e){
+    $('.btn_delete').on('click', function(e){
         if(confirm(delete_dialog))
         {
             return true;
@@ -14,4 +16,7 @@ $('document').ready(function() {
             return false;
         }
     });
+
+    $('.info-messages').fadeOut(6000);
+    $('.error-messages').fadeOut(6000);
 });
