@@ -87,10 +87,5 @@ Route::get('/user/rooms', [RoomController::class, 'index'])->name('user.rooms');
  ***************************/
 Route::get('/booking/{id}', [BookingController::class, 'show'])->name('booking.show');
 Route::post('/booking/store', [BookingController::class, 'store'])->name('booking.store');
-<<<<<<< HEAD
-Route::get('/booking/destroy', [BookingController::class, 'destroy'])->name('booking.destroy');
 Route::get('/booking/getDates/{id?}', [BookingController::class, 'getBookingsByRoom'])->name('booking.getDates');
-=======
 Route::get('/booking/{id}/delete', [BookingController::class, 'destroy'])->name('booking.destroy');
-Route::get('/booking/getDates/{id?}', [BookingController::class, 'getBookingsByRoom'])->name('booking.getDates');
->>>>>>> 1dc4f359d8b967033b2b96f4cf2f4073bd8c8bde
