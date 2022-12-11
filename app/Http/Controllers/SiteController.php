@@ -124,4 +124,18 @@ class SiteController extends Controller
         return view('common.termes');
     }
 
+    public function roomsList(){
+        $rooms = Room::query()->whereNull('deleted_at')->get();
+
+        $rooms = $rooms->map(function ($room) {
+            $room->groups = [
+                "e_{$room->establishment->id}",
+
+            ];
+            return $room;
+        });
+
+        return view('common.rooms-list', ['rooms' => $rooms]);
+    }
+
 }

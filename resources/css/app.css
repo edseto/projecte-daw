@@ -24,3 +24,7 @@
     background-color: #24303c !important;
     color: white;
 }
+
+#rooms-list {
+    margin-top: 0;
+}

@@ -31,6 +31,7 @@ Route::get('/logout', [SiteController::class, 'logout'])->name('logout');
 Route::post('/signup', [SiteController::class, 'signup'])->name('signup');
 Route::get('/register', [SiteController::class, 'register'])->name('register');
 Route::get('/termesicondicions', [SiteController::class, 'termes'])->name('termes');
+Route::get('/llistat-habitacions', [SiteController::class, 'roomsList'])->name('rooms-list');
 
 /***************************
  * RUTES CONTACTE
@@ -44,7 +45,6 @@ Route::post('/contacte/submit', [ContactController::class, 'submit'])->name('con
  ***************************/
 Route::get('/admin', function () { return view('admin.index'); })->name('admin.index');
 
-//Route::resource('admin/user', UsersController::class);
 Route::get('/admin/users', [UsersController::class, 'index'])->name('admin.users');
 Route::get('/admin/user/create', [UsersController::class, 'create'])->name('users.create');
 Route::post('/admin/user/store', [UsersController::class, 'store'])->name('users.store');

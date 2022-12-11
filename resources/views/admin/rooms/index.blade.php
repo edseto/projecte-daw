@@ -22,14 +22,13 @@
             </thead>
             <tbody>
             @foreach($user->rooms as $room)
-                @php $establishment = $room->establishment()->get()->first(); @endphp
                 <tr>
                     <td></td>
                     <td>{{$room->name}}</td>
                     <td>{{$room->description}}</td>
-                    <td>{{$establishment->name}}</td>
-                    <td>{{$establishment->city}}</td>
-                    <td>{{$establishment->address}}</td>
+                    <td>{{$room->establishment->name}}</td>
+                    <td>{{$room->establishment->city}}</td>
+                    <td>{{$room->establishment->address}}</td>
                     <td>{{$room->occupancy}}</td>
                     <td>{{$room->price}}</td>
                     <td>

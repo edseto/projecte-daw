@@ -19,7 +19,7 @@
     @endif
     <div class="col-9 m-auto text-justify">
         <h1>Formulari d'edició d'usuaris</h1>
-        <br />        
+        <br />
         @if((auth()->user()->role == 800 || auth()->user()->role == 700) && $user->id != null)
             <a href="#user-rooms" class="btn btn-primary" id="btn-rooms">Les meves habitacions</a>
         @endif
@@ -122,14 +122,13 @@
             </thead>
             <tbody>
             @foreach($user->rooms as $room)
-                @php $establishment = $room->establishment()->get()->first(); @endphp
                 <tr>
                     <td></td>
                     <td>{{$room->name}}</td>
                     <td>{{$room->description}}</td>
-                    <td>{{$establishment->name}}</td>
-                    <td>{{$establishment->city}}</td>
-                    <td>{{$establishment->address}}</td>
+                    <td>{{$room->establishment->name}}</td>
+                    <td>{{$room->establishment->city}}</td>
+                    <td>{{$room->establishment->address}}</td>
                     <td>{{$room->occupancy}}</td>
                     <td>{{$room->price}}</td>
                     <td>
