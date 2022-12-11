@@ -6,6 +6,7 @@ use App\Http\Controllers\EstablishmentController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,12 @@ Route::get('/logout', [SiteController::class, 'logout'])->name('logout');
 Route::post('/signup', [SiteController::class, 'signup'])->name('signup');
 Route::get('/register', [SiteController::class, 'register'])->name('register');
 Route::get('/termesicondicions', [SiteController::class, 'termes'])->name('termes');
+
+/***************************
+ * RUTES CONTACTE
+ ***************************/
+Route::get('/contacte', [ContactController::class, 'index'])->name('contact');
+Route::post('/contacte/submit', [ContactController::class, 'submit'])->name('contact.submit');
 
 
 /***************************

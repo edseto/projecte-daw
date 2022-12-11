@@ -23,7 +23,7 @@ class SiteController extends Controller
     }
 
     /**
-     * 
+     *
      */
     public function login()
     {
@@ -42,14 +42,14 @@ class SiteController extends Controller
 
         if (Auth::attempt($credentials)){
             $request->session()->regenerate();
-            
+
             return redirect('/');
         } else {
             $messages = [
                 'username.required' => 'Nom d\'usuari requerit',
                 'password.required' => 'Contrassenya requerida'
             ];
-            
+
             $validated = $request->validate([
                 'username' => 'required',
                 'password' => 'required',
@@ -70,11 +70,11 @@ class SiteController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-    
+
         $request->session()->invalidate();
-    
+
         $request->session()->regenerateToken();
-    
+
         return redirect('/');
     }
 
@@ -115,7 +115,7 @@ class SiteController extends Controller
 
         if (Auth::attempt($credentials)){
             $request->session()->regenerate();
-        }        
+        }
 
         return redirect('/');
     }
