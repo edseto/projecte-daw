@@ -29,7 +29,7 @@
 				<div class="navbar-nav">
 					<a href="{{ route('landing') }}" class="nav-item nav-link">Inici</a>
 					<a href="#" class="nav-item nav-link">Troba la teva habitació</a>
-					<a href="#" class="nav-item nav-link">Contacta</a>
+					<a href="{{ route('contact') }}" class="nav-item nav-link">Contacta</a>
 					@if (Auth::check())
 						@if(auth()->user()->role == '800')
 							<a href="{{ route('admin.index') }}" class="nav-item nav-link">Administració</a>
