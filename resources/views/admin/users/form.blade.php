@@ -190,7 +190,7 @@
         <table class="table table-light">
             <thead>
             <tr>
-                <th></th>
+            <th></th>
                 <th>Habitació</th>
                 <th>Data</th>
                 <th>Persones</th>
@@ -200,8 +200,8 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($user->bookings()->whereNull('deleted_at')->orderBy('initial_date', 'desc')->get() as $booking)
-                <tr>
+            @foreach(getBookingsByRoom($room->user_id) as $booking)
+            <tr>
                     <td></td>
                     <td>{{$booking->room->name}} - {{$booking->room->establishment->name}}</td>
                     <td>De {{ $booking->initial_date }} a {{ $booking->final_date }}</td>

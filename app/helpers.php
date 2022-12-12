@@ -33,6 +33,6 @@ function getDatesBetween(DateTime $initial_date, DateTime $final_date): array
 
 function getBookingsByRoom(int $id): Collection
 {
-    return Booking::query()->leftJoin('rooms', 'rooms.id', '=', 'bookings.room_id')->whereNull('bookings.deleted_at')->where(['rooms.user_id' => $id])
+    return Booking::query()->select('bookings.*')->leftJoin('rooms', 'rooms.id', '=', 'bookings.room_id')->whereNull('bookings.deleted_at')->where(['rooms.user_id' => $id])
         ->orderBy('initial_date', 'DESC')->get();
 }
