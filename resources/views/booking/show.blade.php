@@ -19,7 +19,7 @@
                 <h2>
                     <b>{{$booking->room->name}}</b> <span>{{ $booking->room->establishment->name }}</span>
                     @if(auth()->user() != null && (auth()->user()->role == 800 || auth()->user()->id == $booking->user_id) && $booking->initial_date >= date('Y-m-d'))
-                        <a href="{{ route('booking.destroy', ['id' => $booking->id]) }}" class="btn btn-danger"><i class="fa fa-edit"></i> Anul·lar</a>
+                        <a href="{{ route('booking.destroy', ['id' => $booking->id]) }}" class="btn btn-danger cancel-booking"><i class="fa fa-edit"></i> Anul·lar</a>
                     @endif
                 </h2>
                 <hr />
