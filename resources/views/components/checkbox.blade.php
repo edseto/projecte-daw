@@ -1,10 +1,9 @@
 <label class="btn btn-outline-primary {{ $class ?? '' }}">
-    <input type="radio"
+    <input type="checkbox"
            id="{{ $id }}"
            name="{{ $name }}"
            aria-label="{{ $label }}"
            value="{{ $value }}"
-           checked="{{ $attributes->has('checked') ?? false }}"
     >
     {{ $label }}
 </label>
