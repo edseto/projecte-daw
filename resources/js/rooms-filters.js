@@ -1,7 +1,7 @@
 import Shufflejs from 'shufflejs'
 
 const container = document.querySelector('#rooms-list')
-let filters = {}
+let filters = []
 
 if (container) {
     const shuffle = new Shufflejs(container, {
@@ -11,10 +11,14 @@ if (container) {
     jQuery('input[name="shuffle-filter"]').on('change', function (ev) {
         const input = ev.currentTarget;
         if (input.checked) {
-            document.querySelector('.active').classList.remove('active')
             input.parentElement.classList.add('active')
-            shuffle.filter(input.value);
+            filters.push(input.value)
+        } else {
+            input.parentElement.classList.remove('active')
+            filters.splice(filters.indexOf(input.value), 1)
         }
+
+        shuffle.filter(filters)
     });
 }
 
