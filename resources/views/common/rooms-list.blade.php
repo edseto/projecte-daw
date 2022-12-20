@@ -13,9 +13,9 @@
                         <div class="card">
                             <a href="{{ route('room.show', ['id' => $room->id]) }}">
                                 @if(strlen($room->photo) > 0)
-                                    <img class="fluid img-thumbnail" src="{{ asset('assets/img/uploaded/' . $room->photo) }}" alt="{{ $room->photo }}">
+                                    <img class="card-img-top" src="{{ asset('assets/img/uploaded/' . $room->photo) }}" alt="{{ $room->photo }}">
                                 @else
-                                    <img class="fluid img-thumbnail" src="{{ asset('assets/img/about/default_room.jpg') }}" alt="">
+                                    <img class="card-img-top" src="{{ asset('assets/img/about/default_room.jpg') }}" alt="">
                                 @endif
                             </a>
                             <div class="card-body">
