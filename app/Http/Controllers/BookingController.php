@@ -35,7 +35,9 @@ class BookingController extends Controller
             {
                 $initial_date = new DateTime($obj->initial_date);
                 $final_date = new DateTime($obj->final_date);
+
                 $ret = getDatesBetween($initial_date, $final_date);
+                //TODO: Treure del array les dates menors que avui ($today)
             }
         }
 

@@ -19,10 +19,11 @@ function getDatesBetween(DateTime $initial_date, DateTime $final_date): array
 {
     $ret = [];
 
-    $final_date = $final_date->modify( '+1 day' ); 
+    $final_date_modified = clone $final_date; 
+    $final_date_modified->modify( '+1 day' );
 
     $interval = new DateInterval('P1D');
-    $daterange = new DatePeriod($initial_date, $interval, $final_date);
+    $daterange = new DatePeriod($initial_date, $interval, $final_date_modified);
 
     foreach($daterange as $date){
         array_push($ret, $date);

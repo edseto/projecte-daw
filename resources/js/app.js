@@ -18,6 +18,17 @@ $('document').ready(function() {
         }
     });
 
+    $('.cancel-booking').on('click', function(e){
+        if(confirm("Estàs segur/a de que vols cancel·lar aquesta reserva?"))
+        {
+            return true;
+        } else {
+            e.stopPropagation();
+            e.preventDefault();
+            return false;
+        }
+    });
+
     $('.info-messages').fadeOut(6000);
     $('.error-messages').fadeOut(6000);
 });

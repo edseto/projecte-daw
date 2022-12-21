@@ -173,7 +173,7 @@
                     <td><a href="{{ route('booking.show', ['id' => $booking->id]) }}">Detalls</a></td>
                     <td>
                         @if($booking->initial_date >= date('Y-m-d'))
-                        <a href="{{ route('booking.destroy', ['id' => $booking->id]) }}">Anular</a>
+                        <a href="{{ route('booking.destroy', ['id' => $booking->id]) }}" class="cancel-booking">Anular</a>
                         @endif
                     </td>
                 </tr>
@@ -200,7 +200,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach(getBookingsByRoom($room->user_id) as $booking)
+            @foreach(getBookingsByRoom($user->id) as $booking)
             <tr>
                     <td></td>
                     <td>{{$booking->room->name}} - {{$booking->room->establishment->name}}</td>
@@ -210,7 +210,7 @@
                     <td><a href="{{ route('booking.show', ['id' => $booking->id]) }}">Detalls</a></td>
                     <td>
                         @if($booking->initial_date >= date('Y-m-d'))
-                        <a href="{{ route('booking.destroy', ['id' => $booking->id]) }}">Anular</a>
+                        <a href="{{ route('booking.destroy', ['id' => $booking->id]) }}" class="cancel-booking">Anular</a>
                         @endif
                     </td>
                 </tr>

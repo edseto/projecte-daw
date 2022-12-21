@@ -28,3 +28,8 @@
 #rooms-list {
     margin-top: 0;
 }
+
+/* LANDING - TARGETES D'HOTEL */
+.card-img-top {
+    max-height: 250px;
+}
